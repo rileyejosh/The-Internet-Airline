@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -57,34 +58,31 @@ input[type=submit]:hover {
 <h2>Travel with us.</h2>
 </div>
 
-<form action="/index.jsp">
-   
-  <label for="country">Origin City</label>
-  <select id="country" name="country">
-    <option value="australia">Australia</option>
-    <option value="canada">Canada</option>
-    <option value="usa">USA</option>
+<form action="index.jsp" method="post">
+  <label for="city">Origin City</label>
+  <select name="city">
+ 	   <c:forEach items="${listCity}" var="city">
+             <option value="${city.cityid}"
+                  <c:if test="${city.id eq selectedCityId}">selected="selected"</c:if>
+                    >
+                    ${city.title}
+             </option>
+       </c:forEach>
   </select>
   
    <label for="country">Destination City</label>
-  <select id="country" name="country">
-    <option value="australia">Australia</option>
-    <option value="canada">Canada</option>
-    <option value="usa">USA</option>
+  <select name="city">
+
   </select>
 
   <label for="country">Departure Date</label>
-  <select id="country" name="country">
-    <option value="australia">Australia</option>
-    <option value="canada">Canada</option>
-    <option value="usa">USA</option>
+  <select name="date">
+ 
   </select>
   
   <label for="country">Return Date</label>
-  <select id="country" name="country">
-    <option value="australia">Australia</option>
-    <option value="canada">Canada</option>
-    <option value="usa">USA</option>
+  <select name="date">
+
   </select>
 
   <input type="submit" value="Submit">
