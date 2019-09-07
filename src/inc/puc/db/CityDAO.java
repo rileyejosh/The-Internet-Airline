@@ -18,13 +18,13 @@ import java.util.List;
  */
 public class CityDAO {
 
-	String databaseURL = "jdbc:sqlserver://localhost:1433/AirlineDB";
+	String databaseURL = "jdbc:sqlserver://localhost:1433;databaseName=AirlineDB";
 	String user = "db-puc";
 	String password = "inc";
 
-	public List<City> list() throws SQLException {
+	public List<City> list() throws SQLException, ClassNotFoundException {
 		List<City> listCity = new ArrayList<>();
-
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		try (Connection connection = DriverManager.getConnection(databaseURL, user, password)) {
 			String sql = "SELECT * FROM city ORDER BY cityid";
 			Statement statement = connection.createStatement();
