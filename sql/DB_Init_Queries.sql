@@ -1,4 +1,4 @@
---Database Initialization Queries for database tables--
+--Database Initialization Queries for the AirlineDB tables--
 CREATE TABLE Customer (
 	cid INTEGER NOT NULL PRIMARY KEY,
 	cname CHAR(80) NOT NULL,
