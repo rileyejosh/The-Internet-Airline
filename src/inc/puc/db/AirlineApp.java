@@ -1,7 +1,10 @@
 package inc.puc.db;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,6 +33,29 @@ public class AirlineApp extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
+		try {
+			listCity(request, response);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void listCity(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, ClassNotFoundException {
+		CityDAO dao = new CityDAO();
+
+		try {
+
+			List<City> listCity = dao.list();
+			request.setAttribute("listCity", listCity);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ServletException(e);
+		}
 	}
 
 	/**
@@ -40,6 +66,16 @@ public class AirlineApp extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// doGet(request, response);
+		int cityId = Integer.parseInt(request.getParameter("cityid"));
+
+		request.setAttribute("selectedCityId", cityId);
+
+		try {
+			listCity(request, response);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
