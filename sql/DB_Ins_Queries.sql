@@ -1,4 +1,4 @@
---Flight
+--Data for the City table--
 INSERT INTO City (cityid, title, state)
 VALUES
   (1, 'Alabama', 'AL'), 
