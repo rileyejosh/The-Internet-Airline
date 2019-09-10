@@ -45,7 +45,7 @@ input[type=submit]:hover {
 
 <!-- Navigation Bar -->
 <div class="w3-bar w3-border w3-light-grey w3-center">
-  <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Home</a>
+  <a href="/index.jsp" style="width:20%" class="w3-bar-item w3-button w3-mobile">Home</a>
   <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Start Over</a>
   <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Great Deals</a>
   <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Help/Information</a>
@@ -58,29 +58,34 @@ input[type=submit]:hover {
 <h2>Travel with us.</h2>
 </div>
 
-<form action="index.jsp" method="post">
+<form action="/index.jsp" method="post">
   <label for="city">Origin City</label>
   <select name="city">
  	   <c:forEach items="${listCity}" var="city">
-             <option value="${city.cityid}"
+             <option value="${city.id}">
                   <c:if test="${city.id eq selectedCityId}">selected="selected"</c:if>
-                    >
                     ${city.title}
              </option>
        </c:forEach>
   </select>
   
-   <label for="country">Destination City</label>
+   <label for="city">Destination City</label>
   <select name="city">
-
+ 	   <c:forEach items="${listCity}" var="city">
+             <option value="${city.id}">
+                  <c:if test="${city.id eq selectedCityId}">selected="selected"</c:if>
+                    
+                    ${city.title}
+             </option>
+       </c:forEach>
   </select>
 
-  <label for="country">Departure Date</label>
+  <label for="date">Departure Date</label>
   <select name="date">
  
   </select>
   
-  <label for="country">Return Date</label>
+  <label for="date">Return Date</label>
   <select name="date">
 
   </select>
