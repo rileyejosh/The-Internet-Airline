@@ -1,7 +1,7 @@
 package inc.puc.db;
 
 /**
- * This model class represents a row in the City table.
+ * The City model class represents a row in the City table.
  * 
  * @author Joshua Riley
  *
