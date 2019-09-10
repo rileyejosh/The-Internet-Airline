@@ -4,17 +4,20 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class AirlineApp
+ * Servlet implementation class AirlineApp, responsible for receiving request
+ * from the client. It invokes the DAO to get a list of items from the database,
+ * saves this list as an attribute in the request, and then forwards the request
+ * to a JSP page.
+ * 
+ * @author Joshua Riley
  */
-@WebServlet("index.jsp")
+//@WebServlet("../AirlineApp/*")
 public class AirlineApp extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -32,9 +35,10 @@ public class AirlineApp extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		try {
 			listCity(request, response);
+			// System.out.println(request.getAttribute("listCity")); --> for debugging
+			// purposes
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,8 +53,7 @@ public class AirlineApp extends HttpServlet {
 
 			List<City> listCity = dao.list();
 			request.setAttribute("listCity", listCity);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-			dispatcher.forward(request, response);
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
