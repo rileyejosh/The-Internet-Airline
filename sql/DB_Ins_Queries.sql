@@ -1,16 +1,17 @@
---Data for the City table--
+-- Data for AirlineDB tables --
+
 INSERT INTO City (cityid, title, state)
 VALUES
-  (1, 'Alabama', 'AL'), 
-  (2, 'Arizona', 'AZ'), 
-  (3, 'Arkansas', 'AR'),
-  (4, 'California', 'CA'),
-  (5, 'Colorado', 'CO'),
-  (6, 'Connecticut', 'CT'),
-  (7, 'Delaware', 'DE'),
-  (8, 'Florida', 'FL'),
-  (9, 'Georgia', 'GA'),
-  (10, 'Hawaii', 'HI');
-  
+  (1, 'Birmingham', 'AL'),
+  (2, 'Anchorage', 'AK'), 
+  (3, 'Phoenix', 'AZ'), 
+  (4, 'Little Rock', 'AR'),
+  (5, 'Los Angeles', 'CA'),
+  (6, 'Denver', 'CO'),
+  (7, 'Bridgeport', 'CT'),
+  (8, 'Wilmington', 'DE'),
+  (9, 'Jacksonville', 'FL'),
+  (10, 'Atlanta', 'GA');
 
+ 
 
