@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  <display-name>the-internet-airline</display-name>
+  
+<display-name>the-internet-airline</display-name>
 
 <servlet>
-    <servlet-name>inc.puc.db.AirlineApp</servlet-name>
-    <jsp-file>/index.jsp</jsp-file>
+	<description></description>
+	<display-name>AirlineApp</display-name>
+    <servlet-name>AirlineApp</servlet-name>
+    <servlet-class>inc.puc.db.AirlineApp</servlet-class>
+    <load-on-startup>1</load-on-startup>
+    
 </servlet>
 <!--mapping-->
 <servlet-mapping>
-    <servlet-name>inc.puc.db.AirlineApp</servlet-name>
-    <url-pattern>/*</url-pattern>
+	    	
+    <servlet-name>AirlineApp</servlet-name>    
+    <url-pattern>/AirlineApp/*</url-pattern>
+    
 </servlet-mapping>
 
 <welcome-file-list>
