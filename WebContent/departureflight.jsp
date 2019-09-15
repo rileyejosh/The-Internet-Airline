@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -13,7 +14,7 @@
 
 <!-- Navigation Bar -->
 <div class="w3-bar w3-border w3-light-grey w3-center">
-  <a href="/index.jsp" style="width:20%" class="w3-bar-item w3-button w3-mobile">Home</a>
+  <a href="${pageContext.request.contextPath}/AirlineApp/index.jsp" style="width:20%" class="w3-bar-item w3-button w3-mobile">Home</a>
   <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Start Over</a>
   <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Great Deals</a>
   <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Help/Information</a>
@@ -26,25 +27,19 @@
 
   <table class="w3-table-all">
     <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
+      <th>ID</th>
+      <th>City</th>
+      <th>Date</th>
+    </tr>  
+  	 <tr>
+     	<td>
+		</td>
+      	<td>
+      <% request.getParameter("id"); %>
+	   </td>
+      <td>
+      </td>
+   	</tr>
   </table>
 </div>
 
