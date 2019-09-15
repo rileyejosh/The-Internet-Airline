@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  * 
  * @author Joshua Riley
  */
-//@WebServlet("../AirlineApp/*")
+@WebServlet("/")
+
 public class AirlineApp extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -69,12 +71,13 @@ public class AirlineApp extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// doGet(request, response);
-		int cityId = Integer.parseInt(request.getParameter("cityid"));
-
-		request.setAttribute("selectedCityId", cityId);
-
 		try {
+
 			listCity(request, response);
+			String city = request.getParameter("city");
+			request.getSession().setAttribute("city", city);
+			response.sendRedirect("departureflight.jsp");
+
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
