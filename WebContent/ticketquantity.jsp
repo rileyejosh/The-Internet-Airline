@@ -18,7 +18,7 @@ h1 {text-align: center;}
 <body>
 <!-- Navigation Bar -->
 <div class="w3-bar w3-border w3-light-grey w3-center">
-  <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Home</a>
+  <a href="${pageContext.request.contextPath}/AirlineApp/index.jsp" style="width:20%" class="w3-bar-item w3-button w3-mobile">Home</a>
   <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Start Over</a>
   <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Great Deals</a>
   <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Help/Information</a>
