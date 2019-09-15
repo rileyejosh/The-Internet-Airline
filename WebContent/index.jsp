@@ -40,12 +40,13 @@ input[type=submit]:hover {
   background-color: #45a049;
 }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
 
 <!-- Navigation Bar -->
 <div class="w3-bar w3-border w3-light-grey w3-center">
-  <a href="/index.jsp" style="width:20%" class="w3-bar-item w3-button w3-mobile">Home</a>
+  <a href="${pageContext.request.contextPath}/AirlineApp/index.jsp" style="width:20%" class="w3-bar-item w3-button w3-mobile">Home</a>
   <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Start Over</a>
   <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Great Deals</a>
   <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Help/Information</a>
@@ -58,39 +59,96 @@ input[type=submit]:hover {
 <h2>Travel with us.</h2>
 </div>
 
-<form action="/index.jsp" method="post">
+<form action="${pageContext.request.contextPath}/AirlineApp/*" method="POST">
   <label for="city">Origin City</label>
   <select name="city">
  	   <c:forEach items="${listCity}" var="city">
              <option value="${city.id}">
-                  <c:if test="${city.id eq selectedCityId}">selected="selected"</c:if>
                     ${city.title}
              </option>
        </c:forEach>
   </select>
   
-   <label for="city">Destination City</label>
-  <select name="city">
+  <label for="city">Destination City</label>
+  <select id="city" name="city">
  	   <c:forEach items="${listCity}" var="city">
-             <option value="${city.id}">
-                  <c:if test="${city.id eq selectedCityId}">selected="selected"</c:if>
-                    
-                    ${city.title}
+             <option value="${city.id}">  
+               ${city.title}
              </option>
        </c:forEach>
   </select>
 
-  <label for="date">Departure Date</label>
-  <select name="date">
- 
-  </select>
+  <label for="ddate">Departure Date</label>
+  	<select class="year"></select>
+	<select class="month"></select>
+	<select class="day"></select>
   
-  <label for="date">Return Date</label>
-  <select name="date">
-
-  </select>
+  <label for="rdate">Return Date</label>
+  	<select class="year"></select>
+	<select class="month"></select>
+	<select class="day"></select>
 
   <input type="submit" value="Submit">
 </form>
+<script>
+$(document).ready(function() {
+const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+  var qntYears = 4;
+  var selectYear = $(".year");
+  var selectMonth = $(".month");
+  var selectDay = $(".day");
+  var currentYear = new Date().getFullYear();
+  
+  for (var y = 0; y < qntYears; y++){
+    let date = new Date(currentYear);
+    var yearElem = document.createElement("option");
+    yearElem.value = currentYear 
+    yearElem.textContent = currentYear;
+    selectYear.append(yearElem);
+    currentYear--;
+  } 
+
+  for (var m = 0; m < 12; m++){
+      let monthNum = new Date(2018, m).getMonth()
+      let month = monthNames[monthNum];
+      var monthElem = document.createElement("option");
+      monthElem.value = monthNum; 
+      monthElem.textContent = month;
+      selectMonth.append(monthElem);
+    }
+
+    var d = new Date();
+    var month = d.getMonth();
+    var year = d.getFullYear();
+    var day = d.getDate();
+
+    selectYear.val(year); 
+    selectYear.on("change", AdjustDays);  
+    selectMonth.val(month);    
+    selectMonth.on("change", AdjustDays);
+
+    AdjustDays();
+    selectDay.val(day)
+    
+    function AdjustDays(){
+      var year = selectYear.val();
+      var month = parseInt(selectMonth.val()) + 1;
+      selectDay.empty();
+      
+      //get the last day, so the number of days in that month
+      var days = new Date(year, month, 0).getDate(); 
+      
+      //lets create the days of that month
+      for (var d = 1; d <= days; d++){
+        var dayElem = document.createElement("option");
+        dayElem.value = d; 
+        dayElem.textContent = d;
+        selectDay.append(dayElem);
+      }
+    }    
+});
+</script>
 </body>
 </html>
