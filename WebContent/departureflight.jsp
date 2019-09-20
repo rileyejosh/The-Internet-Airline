@@ -8,17 +8,20 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+.myLink {display: none}
+</style>
 <title>Departure Flight</title>
 </head>
 <body>
 
 <!-- Navigation Bar -->
 <div class="w3-bar w3-border w3-light-grey w3-center">
-  <a href="${pageContext.request.contextPath}/AirlineApp/index.jsp" style="width:20%" class="w3-bar-item w3-button w3-mobile">Home</a>
-  <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Start Over</a>
-  <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Great Deals</a>
-  <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Help/Information</a>
-  <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Contact Us</a>
+ <a href="${pageContext.request.contextPath}/AirlineApp/index.jsp" style="width:25%" class="w3-bar-item w3-button w3-mobile">Start Over</a>
+  <a href="#" style="width:25%" class="w3-bar-item w3-button w3-mobile">Great Deals</a>
+  <a href="#" style="width:25%" class="w3-bar-item w3-button w3-mobile">Help/Information</a>
+  <a href="#" style="width:25%" class="w3-bar-item w3-button w3-mobile">Contact Us</a>
 </div>
 
 <div class="w3-container">
