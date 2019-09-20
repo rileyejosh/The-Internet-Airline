@@ -23,7 +23,7 @@ public class CityDAO {
 	String password = "inc";
 
 	public List<City> list() throws SQLException, ClassNotFoundException {
-		List<City> listCity = new ArrayList<City>();
+		List<City> cities = new ArrayList<City>();
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		try (Connection connection = DriverManager.getConnection(databaseURL, user, password)) {
 			String sql = "SELECT * FROM city ORDER BY title, state";
@@ -36,7 +36,7 @@ public class CityDAO {
 				String state = result.getString("state");
 				City city = new City(id, title, state);
 
-				listCity.add(city);
+				cities.add(city);
 
 			}
 
@@ -45,7 +45,7 @@ public class CityDAO {
 			throw ex;
 		}
 
-		return listCity;
+		return cities;
 	}
 
 	// main method for debugging
