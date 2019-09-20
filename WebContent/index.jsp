@@ -12,6 +12,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+.myLink {display: none}
+
 /* Style inputs */
   input[type=text], select {
   width: 100%;
@@ -26,7 +29,7 @@
 /* Style the submit button */
 input[type=submit] {
   width: 100%;
-  background-color: #4CAF50;
+  background-color: ;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -46,11 +49,10 @@ input[type=submit]:hover {
 
 <!-- Navigation Bar -->
 <div class="w3-bar w3-border w3-light-grey w3-center">
-  <a href="${pageContext.request.contextPath}/AirlineApp/index.jsp" style="width:20%" class="w3-bar-item w3-button w3-mobile">Home</a>
-  <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Start Over</a>
-  <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Great Deals</a>
-  <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Help/Information</a>
-  <a href="#" style="width:20%" class="w3-bar-item w3-button w3-mobile">Contact Us</a>
+  <a href="${pageContext.request.contextPath}/AirlineApp/index.jsp" style="width:25%" class="w3-bar-item w3-button w3-mobile">Start Over</a>
+  <a href="${pageContext.request.contextPath}/AirlineApp/greatdeals.jsp" style="width:25%" class="w3-bar-item w3-button w3-mobile">Great Deals</a>
+  <a href="${pageContext.request.contextPath}/AirlineApp/help.jsp" style="width:25%" class="w3-bar-item w3-button w3-mobile">Help/Information</a>
+  <a href="${pageContext.request.contextPath}/AirlineApp/contact.jsp" style="width:25%" class="w3-bar-item w3-button w3-mobile">Contact Us</a>
 </div>
 
 <!-- Content -->
@@ -88,7 +90,7 @@ input[type=submit]:hover {
 	<select class="month"></select>
 	<select class="day"></select>
 
-  <input type="submit" value="Submit">
+  <input class = "w3-button w3-black w3-padding-large" type="submit" value="Submit">
 </form>
 <script>
 $(document).ready(function() {
