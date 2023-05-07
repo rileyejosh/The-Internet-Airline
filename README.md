@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## The Internet Airline
 
 DB-PNW, Inc.
@@ -11,8 +12,4 @@ The DB-PNW, Inc. proposes creating a new Internet airline reservation web applic
 We will have a large database supporting dozens of major cities around the world as well as hundreds of flights. Above all, we hope to provide a comfortable user experience along with the best pricing available on the internet.
 
 In addition, we plan to utilize modern internet technologies such as JDBC, cookies, and servlets in our project.
-
-
-
----
 
