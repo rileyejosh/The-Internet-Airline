@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ## The Internet Airline
 
 DB-PNW, Inc.
