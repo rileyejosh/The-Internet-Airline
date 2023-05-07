@@ -3,11 +3,11 @@ package inc.puc.db;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Servlet implementation class AirlineApp, responsible for receiving request
@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  * 
  * @author Joshua Riley
  */
-//@WebServlet("/*")
 
+@WebServlet("/")
 public class AirlineApp extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,7 @@ public class AirlineApp extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws jakarta.servlet.ServletException, IOException {
 		try {
 			listCity(request, response);
 			// System.out.println(request.getAttribute("listCity")); --> for debugging
