@@ -24,6 +24,7 @@ public class FlightDAO {
 
 	public List<FlightModel> list() throws SQLException, ClassNotFoundException {
 		List<FlightModel> flights = new ArrayList<FlightModel>();
+
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		try (Connection connection = DriverManager.getConnection(databaseURL, user, password)) {
 			String sql = "SELECT cid, email, password FROM customer WHERE lower(email) = '<Email>'";

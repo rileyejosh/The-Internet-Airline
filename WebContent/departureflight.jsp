@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -93,6 +94,5 @@ body, h1, h2, h3, h4, h5, h6 {
 			alert("Please select a flight");
 		}
 	</script>
-
 </body>
 </html>

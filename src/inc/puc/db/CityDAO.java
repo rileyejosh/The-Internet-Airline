@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.Optional;
 
 import org.sql2o.Sql2o;
@@ -93,5 +94,4 @@ public class CityDAO implements Dao {
     // TODO Auto-generated method stub
 
   }
-
 }

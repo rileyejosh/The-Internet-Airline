@@ -24,6 +24,7 @@ public class ReservationDAO {
 
 	public List<ReservationModel> list() throws SQLException, ClassNotFoundException {
 		List<ReservationModel> reservations = new ArrayList<ReservationModel>();
+
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		try (Connection connection = DriverManager.getConnection(databaseURL, user, password)) {
 			String sql = "SELECT cid, email, password FROM customer WHERE lower(email) = '<Email>'";

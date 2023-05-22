@@ -94,5 +94,6 @@ body, h1, h2, h3, h4, h5, h6 {
 			alert("Please select a flight; otherwise, select no return flight option.");
 		}
 	</script>
+
 </body>
 </html>
