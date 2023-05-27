@@ -1,4 +1,4 @@
-package inc.puc.db;
+package inc.pnw.db;
 
 import java.io.IOException;
 import java.sql.Date;

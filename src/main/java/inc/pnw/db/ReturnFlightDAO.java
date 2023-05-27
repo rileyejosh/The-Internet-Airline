@@ -1,4 +1,4 @@
-package inc.puc.db;
+package inc.pnw.db;
 
 import java.sql.Connection;
 import java.sql.Date;

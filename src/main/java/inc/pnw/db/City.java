@@ -1,4 +1,4 @@
-package inc.puc.db;
+package inc.pnw.db;
 
 /**
  * The City model class represents a row in the City table.

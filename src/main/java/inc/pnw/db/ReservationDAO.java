@@ -1,4 +1,4 @@
-package inc.puc.db;
+package inc.pnw.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,21 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The FlightDAO class is responsible for retrieving data from the AirlineDB
- * database. It retrieves all rows from the Flight table and returns a
- * collection of Flight objects to the caller.
+ * The ReservationDAO class is responsible for retrieving data from the
+ * AirlineDB database. It retrieves all rows from the Reservation table and
+ * returns a collection of Reservation objects to the caller.
  * 
  * @author Joshua Riley
  *
  */
-public class FlightDAO {
+public class ReservationDAO {
 
 	String databaseURL = "jdbc:sqlserver://localhost:1433;databaseName=airlinedb";
 	String user = "db_puc";
 	String password = "josh";
 
-	public List<FlightModel> list() throws SQLException, ClassNotFoundException {
-		List<FlightModel> flights = new ArrayList<FlightModel>();
+	public List<ReservationModel> list() throws SQLException, ClassNotFoundException {
+		List<ReservationModel> reservations = new ArrayList<ReservationModel>();
 
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		try (Connection connection = DriverManager.getConnection(databaseURL, user, password)) {
@@ -46,14 +46,14 @@ public class FlightDAO {
 			throw ex;
 		}
 
-		return flights;
+		return reservations;
 	}
 
 	// main method for debugging
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
-		FlightDAO f = new FlightDAO();
-		for (int i = 0; i < f.list().size() - 1; i++) {
+		ReservationDAO r = new ReservationDAO();
+		for (int i = 0; i < r.list().size() - 1; i++) {
 
 			// System.out.println(c.list().get(i).getTitle() + c.list().get(i).getState());
 		}

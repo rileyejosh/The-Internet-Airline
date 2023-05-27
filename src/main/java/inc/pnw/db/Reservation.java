@@ -1,4 +1,4 @@
-package inc.puc.db;
+package inc.pnw.db;
 
 /**
  * The Reservation model class represents a row in the Reservation table.
@@ -6,12 +6,12 @@ package inc.puc.db;
  * @author Joshua Riley
  *
  */
-public class ReservationModel {
+public class Reservation {
 
 	private int orderNum, cid, dfid, rfid, qty, cardMonth, cardYear;
 	private String cardNum, order_date;
 
-	public ReservationModel(int orderNum, int cid, int dfid, int rfid, int qty, int cardMonth, int cardYear, String cardNum,
+	public Reservation(int orderNum, int cid, int dfid, int rfid, int qty, int cardMonth, int cardYear, String cardNum,
 			String order_date) {
 		super();
 		this.orderNum = orderNum;
