@@ -1,12 +1,15 @@
 package inc.pnw.db;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * The FlightDAO class is responsible for retrieving data from the AirlineDB
@@ -16,32 +19,21 @@ import java.util.List;
  * @author Joshua Riley
  *
  */
-public class FlightDAO {
+public class FlightDAO implements Dao<FlightModel, Object>{
+  
+ // create the database manager
+  DatabaseManager dbManager = new DatabaseManager();
 
-	String databaseURL = "jdbc:sqlserver://localhost:1433;databaseName=airlinedb";
-	String user = "db_puc";
-	String password = "josh";
-
-	public List<FlightModel> list() throws SQLException, ClassNotFoundException {
-		List<FlightModel> flights = new ArrayList<FlightModel>();
+	public List<FlightModel> getAll() throws SQLException, ClassNotFoundException {
+		List<FlightModel> flights = null;
 
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		try (Connection connection = DriverManager.getConnection(databaseURL, user, password)) {
-			String sql = "SELECT cid, email, password FROM customer WHERE lower(email) = '<Email>'";
-			Statement statement = connection.createStatement();
-			ResultSet result = statement.executeQuery(sql);
+		try (org.sql2o.Connection conn = dbManager.getConnection()) {
+			String sql = "SELECT * FROM Flight";
+			flights = conn.createQuery(sql).executeAndFetch(FlightModel.class);
 
-			/*
-			 * while (result.next()) { int id = result.getInt("cityid"); String title =
-			 * result.getString("title"); String state = result.getString("state"); City
-			 * city = new City(id, title, state);
-			 * 
-			 * customers.add(city);
-			 * 
-			 * }
-			 */
 
-		} catch (SQLException ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw ex;
 		}
@@ -49,13 +41,34 @@ public class FlightDAO {
 		return flights;
 	}
 
-	// main method for debugging
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+  @Override
+  public Optional<FlightModel> get(Object id) {
+    // TODO Auto-generated method stub
+    return Optional.empty();
+  }
 
-		FlightDAO f = new FlightDAO();
-		for (int i = 0; i < f.list().size() - 1; i++) {
+  @Override
+  public void save(Object t) {
+    // TODO Auto-generated method stub
+    
+  }
 
-			// System.out.println(c.list().get(i).getTitle() + c.list().get(i).getState());
-		}
-	}
+  @Override
+  public void update(Object t, String[] params) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void delete(Object t) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public List<FlightModel> getByParameters(Map<String, Object> parameters) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }

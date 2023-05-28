@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class ReturnFlightDAO implements Dao {
@@ -23,7 +24,7 @@ public class ReturnFlightDAO implements Dao {
   }
 
   @Override
-  public Optional get(long id) {
+  public Optional<ReturnFlightModel> get(Object id) {
     // TODO Auto-generated method stub
     return null;
   }
@@ -36,7 +37,7 @@ public class ReturnFlightDAO implements Dao {
     float price = 0;
     java.sql.Date destD = null;
 
-    List<ReturnFlightModel> flights = new ArrayList<ReturnFlightModel>();
+    List<ReturnFlightModel> returnFlights = null;
 
     // connect to the database
     try (org.sql2o.Connection conn = dbManager.getConnection()) {
@@ -61,33 +62,21 @@ public class ReturnFlightDAO implements Dao {
           + "  flight AS dep"
           + "  JOIN flight AS ret ON dep.orig = ret.dest AND dep.dest = ret.orig"
           + " WHERE"
-          + "  dep.fdate = '" + dDate + "'" // TODO: Used prepared statements for inserted dates
-          + "  AND ret.fdate = '" + rDate + "'"
+          + "  dep.fdate = :dDate " 
+          + "  AND ret.fdate = :rDate"
           + "  AND dep.avaliable > 0"
           + "  AND ret.avaliable > 0;"
           ;
 
 
-      ResultSet result = dbManager.executeQuery(query);
-      while (result.next()) {
-        depCity = result.getString("dep_city");
-        retCity = result.getString("arr_city");
-        retFid = result.getInt("ret_fid");
-        flightNumber = result.getInt("ret_fnumber");
-        destD = result.getDate("ret_fdate");
-        flightTime = result.getTime("ret_ftime");
-        price = result.getFloat("ret_price");
-        flightClass = result.getInt("ret_class");
-        flightCap = result.getInt("ret_capacity");
-        flightAvail = result.getInt("ret_avaliable");    
-        ReturnFlightModel flight = new ReturnFlightModel(depCity, retCity, retFid, flightNumber,
-            destD, flightTime, price, flightClass, flightCap, flightAvail);
-        flights.add(flight);
+      returnFlights = conn.createQuery(query)
+            .addParameter("dDate", dDate)
+            .addParameter("rDate", rDate)
+            .executeAndFetch(ReturnFlightModel.class);
 
       }
-      return flights;
+      return returnFlights;
     }
-  }
 
   @Override
   public void save(Object t) {
@@ -106,32 +95,30 @@ public class ReturnFlightDAO implements Dao {
     // TODO Auto-generated method stub
 
   }
-  
-  // main method for debugging
-
-  public static void main(String[] args) throws ClassNotFoundException, SQLException {
-    
-    Date dd = Date.valueOf("2023-03-20");
-    Date rd = Date.valueOf("2023-03-25");
-    ReturnFlightDAO rf = new ReturnFlightDAO(dd, rd);
-    List<ReturnFlightModel> f = rf.getAll();
-    if (f.size() == 0)
-      System.out.println(f.size());
-    for (ReturnFlightModel flight : f) {
-      System.out.println(flight.getFdate());
-      System.out.println(flight.getclassFlight());
-      System.out.println(flight.getFtime());
-      System.out.println(flight.getId());
-
-
-    }
-  }
 
   @Override
-  public Optional get(int id) {
+  public List getByParameters(Map parameters) {
     // TODO Auto-generated method stub
     return null;
   }
-
-
+  
+  // main method for debugging
+//
+//  public static void main(String[] args) throws ClassNotFoundException, SQLException {
+//    
+//    Date dd = Date.valueOf("2023-03-20");
+//    Date rd = Date.valueOf("2023-03-25");
+//    ReturnFlightDAO rf = new ReturnFlightDAO(dd, rd);
+//    List<ReturnFlightModel> f = rf.getAll();
+//    if (f.size() == 0)
+//      System.out.println(f.size());
+//    for (ReturnFlightModel flight : f) {
+//      System.out.println(flight.getFdate());
+//      System.out.println(flight.getclassFlight());
+//      System.out.println(flight.getFtime());
+//      System.out.println(flight.getId());
+//
+//
+//    }
+//  }
 }
