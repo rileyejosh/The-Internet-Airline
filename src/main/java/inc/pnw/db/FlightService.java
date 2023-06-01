@@ -5,13 +5,11 @@ import java.util.List;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Optional;
 
 public class FlightService extends ServiceBase {
   
   private static List<FlightDTO> flightList;
   private static List<FlightModel> flights;
-  private static CityDAO cityDao = new CityDAO();
   private static FlightDAO flightDao;
 
   

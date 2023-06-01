@@ -47,23 +47,6 @@ public class AirlineApp extends HttpServlet {
 
   }
 
-  public static void main(String[] args) {
-
-    java.sql.Date dFormattedDate;
-    java.sql.Date rFormattedDate;
-    try {
-      dFormattedDate = ServiceBase.formatDate("2023-03-20");
-      rFormattedDate = ServiceBase.formatDate("2023-03-25");
-      System.out.println("Departure Date is " + dFormattedDate);
-      System.out.println("Return Date is " + rFormattedDate);
-    } catch (ParseException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-
-
-  }
-
   /**
    * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
    */
