@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -18,44 +18,27 @@ import java.util.Optional;
  * @author Joshua Riley
  *
  */
-public class CustomerDAO implements Dao{
-	String databaseURL = "jdbc:sqlserver://localhost:1433;databaseName=airlinedb";
-	String user = "db-puc";
-	String password = "josh";
+public class CustomerDAO implements Dao<CustomerModel, Object>{
 
-	public Optional<CustomerModel> get() throws SQLException, ClassNotFoundException {
-		List<CustomerModel> customers = new ArrayList<CustomerModel>();
+	public Optional<CustomerModel> get(Object email) {
+		CustomerModel customer = null;
 		DatabaseManager dbManager = new DatabaseManager();
 		try (org.sql2o.Connection connection = dbManager.getConnection()) {
 			String sql = "SELECT cid, email, password FROM customer WHERE lower(email) = :email";
-			connection.createQuery(sql);
+			customer = connection.createQuery(sql)
+			.addParameter("email", email)
+			.executeAndFetchFirst(CustomerModel.class);
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw ex;
 		}
 
-		return customers;
-	}
-
-	// main method for debugging
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-
-		CustomerDAO c = new CustomerDAO();
-		for (int i = 0; i < c.list().size() - 1; i++) {
-
-			// System.out.println(c.list().get(i).getTitle() + c.list().get(i).getState());
-		}
+		return Optional.ofNullable(customer);
 	}
 
   @Override
-  public Optional get(int id) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  @Override
-  public List getAll() throws SQLException, ClassNotFoundException {
+  public List<CustomerModel> getAll() throws SQLException, ClassNotFoundException {
     // TODO Auto-generated method stub
     return null;
   }
@@ -76,5 +59,11 @@ public class CustomerDAO implements Dao{
   public void delete(Object t) {
     // TODO Auto-generated method stub
     
+  }
+
+  @Override
+  public List<CustomerModel> getByParameters(Map<String, Object> parameters) {
+    // TODO Auto-generated method stub
+    return null;
   }
 }

@@ -1,13 +1,15 @@
 package inc.pnw.db;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Optional;
 
 import org.sql2o.Sql2o;
@@ -20,35 +22,18 @@ import org.sql2o.Sql2oException;
  * @author Joshua Riley
  *
  */
-public class CityDAO implements Dao {
-  
-  public static void main(String[] args) {
-    CityDAO cd = new CityDAO();
-    List<CityModel> c;
-    try {
-      c = cd.getAll();
-      System.out.println(c.size());
-    } catch (ClassNotFoundException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    
-    
-  }
+public class CityDAO implements Dao<CityModel, Object> {
+
   
   @Override
-  public Optional<CityModel> get(int id) {
+  public Optional<CityModel> get(Object id) {
     CityModel city;
 
     DatabaseManager dbManager = new DatabaseManager();
     try (org.sql2o.Connection connection = dbManager.getConnection()) {
       String sql = "SELECT * FROM city WHERE cityid = :cityid";
-         
-      city = connection.createQuery(sql)
-          .addParameter("cityid", id)
+
+      city = connection.createQuery(sql).addParameter("cityid", id)
           .executeAndFetchFirst(CityModel.class);
 
 
@@ -80,7 +65,7 @@ public class CityDAO implements Dao {
   @Override
   public void save(Object t) {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
@@ -94,4 +79,35 @@ public class CityDAO implements Dao {
     // TODO Auto-generated method stub
 
   }
-}
+
+  @Override
+  public List<CityModel> getByParameters(Map<String, Object> parameters) {
+    List<CityModel> cities = null;
+    parameters = new HashMap<String, Object>();
+    DatabaseManager dbManager = new DatabaseManager();
+    
+    
+    try (org.sql2o.Connection connection = dbManager.getConnection()) {
+      
+      String sql = dbManager.buildQuery(parameters);
+      cities = connection.createQuery(sql)
+          .bind(parameters)
+          .executeAndFetch(CityModel.class);
+    }
+    return cities;
+  }
+  
+  public static void main(String[] args) {
+    CityDAO cd = new CityDAO();
+    try {
+      List<CityModel> c = cd.getAll();
+      System.out.println(c.size());
+    } catch (ClassNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+  }

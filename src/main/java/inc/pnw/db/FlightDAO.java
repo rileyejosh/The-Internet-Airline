@@ -1,61 +1,115 @@
 package inc.pnw.db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import java.text.ParseException;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Optional;
+import org.sql2o.Query;
 
 /**
- * The FlightDAO class is responsible for retrieving data from the AirlineDB
- * database. It retrieves all rows from the Flight table and returns a
- * collection of Flight objects to the caller.
+ * The FlightDAO class is responsible for retrieving data from the AirlineDB database. It retrieves
+ * all rows from the Flight table and returns a collection of Flight objects to the caller.
  * 
  * @author Joshua Riley
  *
  */
-public class FlightDAO {
+public class FlightDAO implements Dao<FlightModel, Object> {
 
-	String databaseURL = "jdbc:sqlserver://localhost:1433;databaseName=airlinedb";
-	String user = "db_puc";
-	String password = "josh";
+  FlightModel flightDto = new FlightModel();
+  DatabaseManager dbManager = new DatabaseManager();
+  List<FlightModel> flights;
 
-	public List<FlightModel> list() throws SQLException, ClassNotFoundException {
-		List<FlightModel> flights = new ArrayList<FlightModel>();
+  @Override
+  public Optional<FlightModel> get(Object id) {
 
-		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		try (Connection connection = DriverManager.getConnection(databaseURL, user, password)) {
-			String sql = "SELECT cid, email, password FROM customer WHERE lower(email) = '<Email>'";
-			Statement statement = connection.createStatement();
-			ResultSet result = statement.executeQuery(sql);
+    try (org.sql2o.Connection connection = dbManager.getConnection()) {
+      String sql = "SELECT * FROM Flight WHERE fid = :fid";
 
-			/*
-			 * while (result.next()) { int id = result.getInt("cityid"); String title =
-			 * result.getString("title"); String state = result.getString("state"); City
-			 * city = new City(id, title, state);
-			 * 
-			 * customers.add(city);
-			 * 
-			 * }
-			 */
+      flightDto = connection.createQuery(sql).addParameter("fid", id)
+          .executeAndFetchFirst(FlightModel.class);
 
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			throw ex;
-		}
 
-		return flights;
-	}
+    } catch (Exception ex) {
+      ex.printStackTrace();
+      throw ex;
+    }
+    return Optional.ofNullable(flightDto);
+  }
 
-	// main method for debugging
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
-		FlightDAO f = new FlightDAO();
-		for (int i = 0; i < f.list().size() - 1; i++) {
+  @Override
+  public List<FlightModel> getByParameters(Map<String, Object> parameters) {
+    List<FlightModel> flights = new ArrayList<>();
 
-			// System.out.println(c.list().get(i).getTitle() + c.list().get(i).getState());
-		}
-	}
+
+    try (org.sql2o.Connection connection = dbManager.getConnection()) {
+        String sql = "SELECT * FROM flight WHERE ";
+
+        // Build the SQL query dynamically based on the parameters
+        List<String> conditions = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+            String key = entry.getKey();
+            
+            conditions.add(key + " = :" + key);
+        }
+        sql += String.join(" AND ", conditions);
+
+        // Execute the query and map the result to FlightModel objects
+        Query query = connection.createQuery(sql);
+        for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            
+            query.addParameter(key, value);
+        }
+        flights = query.executeAndFetch(FlightModel.class);
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        throw ex;
+    }
+
+    return flights;
+}
+   
+ 
+
+  @Override
+  public List<FlightModel> getAll() throws SQLException, ClassNotFoundException {
+    List<FlightModel> flights;
+    DatabaseManager dbManager = new DatabaseManager();
+    try (org.sql2o.Connection connection = dbManager.getConnection()) {
+      String sql = "SELECT * FROM flight";
+      flights = connection.createQuery(sql).executeAndFetch(FlightModel.class);
+
+
+    } catch (Exception ex) {
+      ex.printStackTrace();
+      throw ex;
+    }
+
+    return flights;
+  }
+
+  @Override
+  public void save(Object t) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void update(Object t, String[] params) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void delete(Object t) {
+    // TODO Auto-generated method stub
+
+  }
+
 }
