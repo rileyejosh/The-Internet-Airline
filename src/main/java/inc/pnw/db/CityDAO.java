@@ -1,6 +1,7 @@
 package inc.pnw.db;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Optional;
 
 import org.sql2o.Sql2o;
@@ -22,6 +24,7 @@ import org.sql2o.Sql2oException;
  */
 public class CityDAO implements Dao<CityModel, Object> {
 
+  
   @Override
   public Optional<CityModel> get(Object id) {
     CityModel city;
@@ -79,7 +82,32 @@ public class CityDAO implements Dao<CityModel, Object> {
 
   @Override
   public List<CityModel> getByParameters(Map<String, Object> parameters) {
-    // TODO Auto-generated method stub
-    return null;
+    List<CityModel> cities = null;
+    parameters = new HashMap<String, Object>();
+    DatabaseManager dbManager = new DatabaseManager();
+    
+    
+    try (org.sql2o.Connection connection = dbManager.getConnection()) {
+      
+      String sql = dbManager.buildQuery(parameters);
+      cities = connection.createQuery(sql)
+          .bind(parameters)
+          .executeAndFetch(CityModel.class);
+    }
+    return cities;
   }
-}
+  
+  public static void main(String[] args) {
+    CityDAO cd = new CityDAO();
+    try {
+      List<CityModel> c = cd.getAll();
+      System.out.println(c.size());
+    } catch (ClassNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+  }

@@ -1,6 +1,7 @@
 package inc.pnw.db;
 
 import java.sql.Date;
+import java.sql.Time;
 
 /**
  * The Flight model class represents a row in the Flight table.
@@ -10,33 +11,12 @@ import java.sql.Date;
  */
 public class FlightModel {
 
-	private int fid, fnumber, classFlight, capacity, available, orig, dest;
+	private int fid, fnumber, classflight, capacity, available;
+    protected int orig;
+    protected int dest;
 	Date fdate;
-	private String ftime;
-	private float price;
-
-	public FlightModel(int fid, int fnumber, int classFlight, int capacity, int available, int orig, int dest, Date fdate,
-			String ftime, float price) {
-		super();
-		this.fid = fid;
-		this.fnumber = fnumber;
-		this.classFlight = classFlight;
-		this.capacity = capacity;
-		this.available = available;
-		this.orig = orig;
-		this.dest = dest;
-		this.fdate = fdate;
-		this.ftime = ftime;
-		this.price = price;
-
-	}
-	public FlightModel(int orig, int dest, Date fdate) {
-	  
-	  this.orig = orig;
-	  this.dest = dest;
-	  this.fdate = fdate;
-	  
-	}
+	private Time ftime;
+	private double price;
 
 	public int getId() {
 		return fid;
@@ -55,11 +35,11 @@ public class FlightModel {
 	}
 
 	public int getclassFlight() {
-		return classFlight;
+		return classflight;
 	}
 
 	public void setClassFlight(int classFlight) {
-		this.classFlight = classFlight;
+		this.classflight = classFlight;
 	}
 
 	public int getCapacity() {
@@ -104,16 +84,16 @@ public class FlightModel {
 		this.fdate = fdate;
 	}
 
-	public String getTime() {
+	public Time getTime() {
 		return ftime;
 	}
 
-	public void setTime(String ftime) {
+	public void setTime(Time ftime) {
 
 		this.ftime = ftime;
 	}
 
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 

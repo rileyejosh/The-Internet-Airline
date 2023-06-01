@@ -130,17 +130,18 @@ public class DatabaseManager {
     }
   }
 
-  /* main for testing */
-  public static void main(String[] args) {
-    // create the database manager for an Access database
-    DatabaseManager dbManager = new DatabaseManager();
+  public String buildQuery(Map<String, Object> parameters) {
+    StringBuilder queryBuilder = new StringBuilder("SELECT * FROM flights WHERE ");
+    List<String> conditions = new ArrayList<>();
+    
+    for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+      String key = entry.getKey();
+      conditions.add(key + " = :" + key);
+    }
 
-    // create the database manager for a MySQL database
-    // new DatabaseManager("com.mysql.jdbc.Driver",
-    // "jdbc:mysql://localhost:3306/person");
-
-    // test a query
-    dbManager.testConnection();
+    queryBuilder.append(String.join(" AND ", conditions));
+    return queryBuilder.toString();
+   
   }
 
 }

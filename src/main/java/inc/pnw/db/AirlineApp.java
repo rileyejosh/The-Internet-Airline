@@ -37,7 +37,7 @@ public class AirlineApp extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(AirlineApp.class);
-
+  
 
   /**
    * @see HttpServlet#HttpServlet()
@@ -52,8 +52,8 @@ public class AirlineApp extends HttpServlet {
     java.sql.Date dFormattedDate;
     java.sql.Date rFormattedDate;
     try {
-      dFormattedDate = formatDate("2023-03-20");
-      rFormattedDate = formatDate("2023-03-25");
+      dFormattedDate = ServiceBase.formatDate("2023-03-20");
+      rFormattedDate = ServiceBase.formatDate("2023-03-25");
       System.out.println("Departure Date is " + dFormattedDate);
       System.out.println("Return Date is " + rFormattedDate);
     } catch (ParseException e) {
@@ -91,10 +91,11 @@ public class AirlineApp extends HttpServlet {
       switch (page) {
         case "":
           try {
-            listCity(request, response);
-          } catch (ClassNotFoundException e) {
-
-            e.printStackTrace();
+            
+            request.setAttribute("listCity", CityService.listCity());
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+            dispatcher.forward(request, response);
+            
           } catch (ServletException e) {
 
             e.printStackTrace();
@@ -113,88 +114,6 @@ public class AirlineApp extends HttpServlet {
     }
   }
 
-  private void listCity(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException, ClassNotFoundException {
-    CityDAO cities = new CityDAO();
-
-    try {
-
-      List<CityModel> listCity = cities.getAll();
-      request.setAttribute("listCity", listCity);
-      RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-      LOGGER.info("In listCity");
-
-      dispatcher.forward(request, response);
-
-    } catch (SQLException e) {
-      e.getMessage();
-      throw new ServletException(e);
-    } catch (IOException e) {
-      e.getMessage();
-    } catch (ClassNotFoundException e) {
-      e.getMessage();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-
-  private List<DepartureFlightModel> retrieveDepartureFlights(String o, String d, Date dd)
-      throws ServletException, IOException, ClassNotFoundException {
-    DepartureFlightDAO dao = new DepartureFlightDAO(o, d, dd);
-    List<DepartureFlightModel> listDepartureFlight = null;
-
-
-    try {
-
-      listDepartureFlight = dao.getAll();
-
-    } catch (SQLException e) {
-      e.getMessage();
-      throw new ServletException(e);
-    } catch (ClassNotFoundException e) {
-      e.getMessage();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return listDepartureFlight;
-
-  }
-
-  private List<ReturnFlightModel> retrieveReturnFlights(Date dd, Date rd)
-      throws ServletException, IOException, ClassNotFoundException {
-    ReturnFlightDAO dao = new ReturnFlightDAO(dd, rd);
-    List<ReturnFlightModel> listReturnFlight = null;
-
-
-    try {
-
-      listReturnFlight = dao.getAll();
-
-    } catch (SQLException e) {
-      e.getMessage();
-      throw new ServletException(e);
-    } catch (ClassNotFoundException e) {
-      e.getMessage();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return listReturnFlight;
-
-  }
-
-
-  private static java.sql.Date formatDate(String dateString) throws ParseException {
-
-    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-M-d");
-    LocalDate date = LocalDate.parse(dateString, inputFormatter);
-    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    String formattedDate = outputFormatter.format(date);
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    java.util.Date tempDate = dateFormat.parse(formattedDate);
-    java.sql.Date newDate = new java.sql.Date(tempDate.getTime());
-    return newDate;
-  }
 
   /**
    * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -209,22 +128,17 @@ public class AirlineApp extends HttpServlet {
     LOGGER.info("The action is: " + action);
     // handle actions
     if (action.equals("departure")) {
-
+      FlightService.action = "departure";  
       String origCity = request.getParameter("ocity");
       String destCity = request.getParameter("dcity");
       String dYear = request.getParameter("dyear");
       String dDay = request.getParameter("dday");
       String dMonth = request.getParameter("dmonth");
       String dateString = dYear + "-" + dMonth + "-" + dDay;
-      LOGGER.info(origCity);
-      LOGGER.info(destCity);
-      LOGGER.info(dateString);
 
       try {
-        java.sql.Date dDate = formatDate(dateString);
-        List<DepartureFlightModel> listDepartureFlight =
-            retrieveDepartureFlights(origCity, destCity, dDate);
-
+        java.sql.Date dDate = ServiceBase.formatDate(dateString);
+        List<FlightDTO> listDepartureFlight = FlightService.getCityNamesForFlights(FlightService.retrieveDepartureFlights(origCity, destCity, dDate));
         try {
 
           HttpSession session = request.getSession(true);
@@ -256,27 +170,22 @@ public class AirlineApp extends HttpServlet {
       }
     }
     if (action.equals("return")) {
-
+      FlightService.action = "return";
       java.sql.Date dFormattedDate;
       java.sql.Date rFormattedDate;
       HttpSession session = request.getSession();
       try {
 
-        dFormattedDate = formatDate(session.getAttribute("DepartureDate").toString());
-        rFormattedDate = formatDate(session.getAttribute("ReturnDate").toString());
+        dFormattedDate = ServiceBase.formatDate(session.getAttribute("DepartureDate").toString());
+        rFormattedDate = ServiceBase.formatDate(session.getAttribute("ReturnDate").toString());
 
         try {
-          List<ReturnFlightModel> listReturnFlight =
-              retrieveReturnFlights(dFormattedDate, rFormattedDate);
+          
+          List<FlightDTO> listReturnFlight =
+              FlightService.getCityNamesForFlights(FlightService.retrieveReturnFlights(6, rFormattedDate));
           session.setAttribute("rf", listReturnFlight);
           response.sendRedirect(request.getContextPath() + "/returnflight.jsp");
 
-        } catch (ClassNotFoundException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        } catch (ServletException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
         } catch (IOException e) {
           // TODO Auto-generated catch block
           e.printStackTrace();
