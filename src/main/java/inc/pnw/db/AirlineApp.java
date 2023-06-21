@@ -37,7 +37,7 @@ import org.apache.logging.log4j.Logger;
 @WebServlet(urlPatterns = {"", "/departureflight", "/returnflight"})
 public class AirlineApp extends HttpServlet {
   private static final long serialVersionUID = 1L;
-  
+
   private static final Logger LOGGER = LogManager.getLogger(AirlineApp.class);
 
 
@@ -103,7 +103,7 @@ public class AirlineApp extends HttpServlet {
 
     // handle actions
     if (action.equals("departure")) {
-      
+
       LOGGER.info("Do Departure");
       FlightService.action = "departure";
       String origCity = request.getParameter("ocity");
@@ -128,21 +128,20 @@ public class AirlineApp extends HttpServlet {
           session.setAttribute("df", listDepartureFlight);
           // TODO: Display message if no flights are returned.
           response.sendRedirect(request.getContextPath() + "/departureflight.jsp");
-          
+
 
           // Retrieve the Return Date
           String rYear = request.getParameter("ryear");
           String rMonth = request.getParameter("rmonth");
           String rDay = request.getParameter("rday");
           String rDate = rYear + "-" + rMonth + "-" + rDay;
-          
-          
+
 
 
           // Get current session
           session = request.getSession();
 
-          // Store the inside the session attribute 
+          // Store the inside the session attribute
           // Store the return date inside the session attribute "ReturnDate"
           session.setAttribute("ReturnDate", rDate);
 
@@ -155,12 +154,9 @@ public class AirlineApp extends HttpServlet {
     }
     if (action.equals("return")) {
 
-
-      java.sql.Date dFormattedDate;
-
       LOGGER.info("Do Return");
       FlightService.action = "return";
-      //Retrieve the selected departure flight
+      // Retrieve the selected departure flight
       String[] selectedIndices = request.getParameterValues("selectedFlight");
       LOGGER.info(selectedIndices[0]);
 
@@ -169,31 +165,20 @@ public class AirlineApp extends HttpServlet {
       HttpSession session = request.getSession();
       try {
 
-        dFormattedDate = ServiceBase.formatDate(session.getAttribute("DepartureDate").toString());
+
         rFormattedDate = ServiceBase.formatDate(session.getAttribute("ReturnDate").toString());
+        
+        if (selectedIndices != null) {
 
-
-        try {
-          
           listReturnFlight =
-              FlightService.getCityNamesForFlights(FlightService.retrieveReturnFlights(6, rFormattedDate));
+              FlightService.getCityNamesForFlights(FlightService.retrieveReturnFlights(
+                  Integer
+                      .parseInt(ServiceBase.filterJson(selectedIndices[0], "flightNumber").trim()),
+                  rFormattedDate));
+          LOGGER.info(listReturnFlight.size());
           session.setAttribute("rf", listReturnFlight);
           response.sendRedirect(request.getContextPath() + "/returnflight.jsp");
-
-        } catch (IOException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
         }
-        
-        rFormattedDate = ServiceBase.formatDate(session.getAttribute("ReturnDate").toString());
-        if (selectedIndices != null) {
-            
-            listReturnFlight = FlightService.getCityNamesForFlights(
-                FlightService.retrieveReturnFlights(Integer.parseInt(ServiceBase.filterJson(selectedIndices[0], "flightNumber").trim()), rFormattedDate));
-            LOGGER.info(listReturnFlight.size());
-            session.setAttribute("rf", listReturnFlight);
-            response.sendRedirect(request.getContextPath() + "/returnflight.jsp");
-        } 
         LOGGER.info(rFormattedDate);
 
       } catch (Exception e) {
