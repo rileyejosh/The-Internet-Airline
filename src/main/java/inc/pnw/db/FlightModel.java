@@ -84,27 +84,11 @@ public class FlightModel {
 		this.fdate = fdate;
 	}
 
-<<<<<<< Updated upstream
-	public Time getTime() {
-		return ftime;
-	}
-
-	public void setTime(Time ftime) {
-=======
-<<<<<<< Updated upstream
-	public String getTime() {
-		return ftime;
-	}
-
-	public void setTime(String ftime) {
-=======
 	public Time getFtime() {
 		return ftime;
 	}
 
 	public void setFtime(Time ftime) {
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
 		this.ftime = ftime;
 	}

@@ -22,61 +22,23 @@ import org.sql2o.Sql2oException;
  * @author Joshua Riley
  *
  */
-<<<<<<< Updated upstream
-public class CityDAO implements Dao<CityModel, Object> {
 
-=======
-<<<<<<< Updated upstream
-public class CityDAO implements Dao {
-  
-  public static void main(String[] args) {
-    CityDAO cd = new CityDAO();
-    List<CityModel> c;
-    try {
-      c = cd.getAll();
-      System.out.println(c.size());
-    } catch (ClassNotFoundException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    
-    
-  }
->>>>>>> Stashed changes
-  
-  @Override
-  public Optional<CityModel> get(Object id) {
-    CityModel city;
-=======
 public class CityDAO implements Dao<City, Object> {
 
-  
+
   @Override
   public Optional<City> get(Object id) {
     City city;
->>>>>>> Stashed changes
+
 
     DatabaseManager dbManager = new DatabaseManager();
     try (org.sql2o.Connection connection = dbManager.getConnection()) {
       String sql = "SELECT * FROM city WHERE cityid = :cityid";
-<<<<<<< Updated upstream
 
-      city = connection.createQuery(sql).addParameter("cityid", id)
-=======
-<<<<<<< Updated upstream
-         
-      city = connection.createQuery(sql)
-          .addParameter("cityid", id)
->>>>>>> Stashed changes
-          .executeAndFetchFirst(CityModel.class);
-=======
 
-      city = connection.createQuery(sql).addParameter("cityid", id)
-          .executeAndFetchFirst(City.class);
->>>>>>> Stashed changes
+      city =
+          connection.createQuery(sql).addParameter("cityid", id).executeAndFetchFirst(City.class);
+
 
 
     } catch (Exception ex) {
@@ -121,46 +83,31 @@ public class CityDAO implements Dao<City, Object> {
     // TODO Auto-generated method stub
 
   }
-<<<<<<< Updated upstream
-
-  @Override
-  public List<CityModel> getByParameters(Map<String, Object> parameters) {
-    List<CityModel> cities = null;
-=======
-<<<<<<< Updated upstream
-}
-=======
 
   @Override
   public List<City> getByParameters(Map<String, Object> parameters) {
     List<City> cities = null;
->>>>>>> Stashed changes
+
     parameters = new HashMap<String, Object>();
     DatabaseManager dbManager = new DatabaseManager();
-    
-    
+
+
     try (org.sql2o.Connection connection = dbManager.getConnection()) {
-      
+
       String sql = dbManager.buildQuery(parameters);
-      cities = connection.createQuery(sql)
-          .bind(parameters)
-<<<<<<< Updated upstream
-          .executeAndFetch(CityModel.class);
-=======
+      cities = connection.createQuery(sql).bind(parameters)
+
           .executeAndFetch(City.class);
->>>>>>> Stashed changes
     }
     return cities;
   }
-  
+
   public static void main(String[] args) {
     CityDAO cd = new CityDAO();
     try {
-<<<<<<< Updated upstream
-      List<CityModel> c = cd.getAll();
-=======
+
       List<City> c = cd.getAll();
->>>>>>> Stashed changes
+
       System.out.println(c.size());
     } catch (ClassNotFoundException e) {
       // TODO Auto-generated catch block
@@ -170,8 +117,5 @@ public class CityDAO implements Dao<City, Object> {
       e.printStackTrace();
     }
   }
-  }
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+}
+

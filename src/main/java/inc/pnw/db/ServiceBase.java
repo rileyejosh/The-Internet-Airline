@@ -1,12 +1,9 @@
 package inc.pnw.db;
 
-<<<<<<< Updated upstream
-=======
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
->>>>>>> Stashed changes
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,9 +25,6 @@ public class ServiceBase {
     java.sql.Date newDate = new java.sql.Date(tempDate.getTime());
     return newDate;
   }
-<<<<<<< Updated upstream
-
-=======
   
   static String filterJson(String jsonStr, String key) throws JsonMappingException, JsonProcessingException {
     ObjectMapper om = new ObjectMapper();
@@ -53,5 +47,4 @@ public class ServiceBase {
     
   }
  
->>>>>>> Stashed changes
 }

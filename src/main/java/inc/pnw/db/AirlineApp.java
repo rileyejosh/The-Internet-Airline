@@ -37,18 +37,9 @@ import org.apache.logging.log4j.Logger;
 @WebServlet(urlPatterns = {"", "/departureflight", "/returnflight"})
 public class AirlineApp extends HttpServlet {
   private static final long serialVersionUID = 1L;
-
-<<<<<<< Updated upstream
-  static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(AirlineApp.class);
-<<<<<<< Updated upstream
   
-=======
-=======
   private static final Logger LOGGER = LogManager.getLogger(AirlineApp.class);
 
->>>>>>> Stashed changes
-
->>>>>>> Stashed changes
 
   /**
    * @see HttpServlet#HttpServlet()
@@ -84,16 +75,6 @@ public class AirlineApp extends HttpServlet {
 
       switch (page) {
         case "":
-<<<<<<< Updated upstream
-          try {
-            
-            request.setAttribute("listCity", CityService.listCity());
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-            dispatcher.forward(request, response);
-            
-          } catch (ServletException e) {
-=======
->>>>>>> Stashed changes
 
           request.setAttribute("listCity", CityService.listCity());
           RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
@@ -122,17 +103,9 @@ public class AirlineApp extends HttpServlet {
 
     // handle actions
     if (action.equals("departure")) {
-<<<<<<< Updated upstream
-      FlightService.action = "departure";  
-=======
-<<<<<<< Updated upstream
-
-=======
       
       LOGGER.info("Do Departure");
       FlightService.action = "departure";
->>>>>>> Stashed changes
->>>>>>> Stashed changes
       String origCity = request.getParameter("ocity");
       LOGGER.info(origCity);
       String destCity = request.getParameter("dcity");
@@ -142,23 +115,13 @@ public class AirlineApp extends HttpServlet {
       String dateString = dYear + "-" + dMonth + "-" + dDay;
 
       try {
-<<<<<<< Updated upstream
-        java.sql.Date dDate = ServiceBase.formatDate(dateString);
-        List<FlightDTO> listDepartureFlight = FlightService.getCityNamesForFlights(FlightService.retrieveDepartureFlights(origCity, destCity, dDate));
-=======
-<<<<<<< Updated upstream
-        java.sql.Date dDate = formatDate(dateString);
-        List<DepartureFlightModel> listDepartureFlight =
-            retrieveDepartureFlights(origCity, destCity, dDate);
 
-=======
         LOGGER.info("Retrieving Departure Flights");
         java.sql.Date dDate = ServiceBase.formatDate(dateString);
         LOGGER.info(dDate.toString());
         List<FlightDTO> listDepartureFlight = FlightService.getCityNamesForFlights(
             FlightService.retrieveDepartureFlights(origCity, destCity, dDate));
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+
         try {
 
           HttpSession session = request.getSession(true);
@@ -191,39 +154,28 @@ public class AirlineApp extends HttpServlet {
       }
     }
     if (action.equals("return")) {
-<<<<<<< Updated upstream
-      FlightService.action = "return";
-=======
-<<<<<<< Updated upstream
 
->>>>>>> Stashed changes
+
       java.sql.Date dFormattedDate;
-=======
+
       LOGGER.info("Do Return");
       FlightService.action = "return";
       //Retrieve the selected departure flight
       String[] selectedIndices = request.getParameterValues("selectedFlight");
       LOGGER.info(selectedIndices[0]);
 
-      
->>>>>>> Stashed changes
       java.sql.Date rFormattedDate;
       List<FlightDTO> listReturnFlight;
       HttpSession session = request.getSession();
       try {
 
-<<<<<<< Updated upstream
         dFormattedDate = ServiceBase.formatDate(session.getAttribute("DepartureDate").toString());
         rFormattedDate = ServiceBase.formatDate(session.getAttribute("ReturnDate").toString());
-=======
-<<<<<<< Updated upstream
-        dFormattedDate = formatDate(session.getAttribute("DepartureDate").toString());
-        rFormattedDate = formatDate(session.getAttribute("ReturnDate").toString());
->>>>>>> Stashed changes
+
 
         try {
           
-          List<FlightDTO> listReturnFlight =
+          listReturnFlight =
               FlightService.getCityNamesForFlights(FlightService.retrieveReturnFlights(6, rFormattedDate));
           session.setAttribute("rf", listReturnFlight);
           response.sendRedirect(request.getContextPath() + "/returnflight.jsp");
@@ -232,7 +184,7 @@ public class AirlineApp extends HttpServlet {
           // TODO Auto-generated catch block
           e.printStackTrace();
         }
-=======
+        
         rFormattedDate = ServiceBase.formatDate(session.getAttribute("ReturnDate").toString());
         if (selectedIndices != null) {
             
@@ -244,7 +196,6 @@ public class AirlineApp extends HttpServlet {
         } 
         LOGGER.info(rFormattedDate);
 
->>>>>>> Stashed changes
       } catch (Exception e) {
         // TODO Auto-generated catch block
         e.printStackTrace();

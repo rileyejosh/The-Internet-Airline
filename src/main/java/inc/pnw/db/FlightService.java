@@ -3,35 +3,20 @@ package inc.pnw.db;
 import java.util.HashMap;
 import java.util.List;
 import java.sql.SQLException;
-<<<<<<< Updated upstream
-import java.util.ArrayList;
-import java.util.Map;
-=======
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
->>>>>>> Stashed changes
+
 
 public class FlightService extends ServiceBase {
   
   private static List<FlightDTO> flightList;
   private static List<FlightModel> flights;
   private static FlightDAO flightDao;
-<<<<<<< Updated upstream
-
-  
-  public static void main(String[] args) {
-    
-    
-  }
-   static List<FlightDTO> getCityNamesForFlights(List<FlightModel> flights) throws ClassNotFoundException, SQLException {
-     flights = new ArrayList<>();
-     flightList = new ArrayList<>();
-     Map<Integer, String> cityMap = CityService.getCityIDName();
-=======
   private static FlightDTO fDto;
 
   
@@ -70,18 +55,10 @@ public class FlightService extends ServiceBase {
    static List<FlightDTO> getCityNamesForFlights(List<FlightModel> flights) throws ClassNotFoundException, SQLException {
      flightList = new ArrayList<>();
      Map<String, String> cityMap = CityService.getCityIDName();
->>>>>>> Stashed changes
-     
+
      for(FlightModel f : flights ) {
 
        // add all flights to the FlightDto.Flight attribute
-<<<<<<< Updated upstream
-       FlightDTO fDto = new FlightDTO();
-       fDto.setFlight(f);  
-       fDto.setCity(new CityDTO());
-       fDto.getCity().getCity().get().setTitle(cityMap.get(f.getOrig()));
-       fDto.getCity().getCity().get().setTitle(cityMap.get(f.getDest()));
-=======
        fDto = new FlightDTO();
        fDto.setFlight(f);  
        fDto.setOriginCity(new CityDTO());
@@ -90,7 +67,7 @@ public class FlightService extends ServiceBase {
        fDto.getArrivalCity().setCity(CityService.createCity());
        fDto.getOriginCity().getCity().get().setTitle(cityMap.get(String.valueOf(f.getOrig())));
        fDto.getArrivalCity().getCity().get().setTitle(cityMap.get(String.valueOf(f.getDest())));
->>>>>>> Stashed changes
+
    
        // add flights /w city names to list of flight DTOs
        flightList.add(fDto);
@@ -103,13 +80,10 @@ public class FlightService extends ServiceBase {
     Map<String, Object> fMap = new HashMap<String, Object>();
     fMap.put("orig", origCity);
     fMap.put("dest", destCity);
-<<<<<<< Updated upstream
-    fMap.put("dDate", dDate);
-    
-=======
+
     fMap.put("fdate", dDate);
     flightDao = new FlightDAO();
->>>>>>> Stashed changes
+
     return flightDao.getByParameters(fMap);
       
       
@@ -128,11 +102,8 @@ public class FlightService extends ServiceBase {
         
         if(flight.getOrig() == flightG.getDest() && flight.getDest() == flightG.getOrig()) {
           
-<<<<<<< Updated upstream
-          if((flight.getId() == dFlight) && (flightG.fdate.compareTo(rDate) == 0)) {
-=======
+
           if((flight.getFid() == dFlight) && (flightG.fdate.compareTo(rDate) == 0)) {
->>>>>>> Stashed changes
             
             flights.add(flightG);
             

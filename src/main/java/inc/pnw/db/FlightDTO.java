@@ -6,10 +6,7 @@ import java.sql.Time;
 public class FlightDTO {
 
   private FlightModel flight;
-<<<<<<< Updated upstream
-  private CityDTO city;
-  
-=======
+
   private CityDTO originCity;
   private CityDTO arrivalCity;
   
@@ -31,7 +28,6 @@ public class FlightDTO {
     this.arrivalCity = arrivalCity;
   }
 
->>>>>>> Stashed changes
   public FlightModel getFlight() {
     return flight;
   }
@@ -40,20 +36,8 @@ public class FlightDTO {
     this.flight = flight;
   }
 
-<<<<<<< Updated upstream
-  public CityDTO getCity() {
-    return city;
-  }
 
-  public void setCity(CityDTO city) {
-    this.city = city;
-  }
-=======
 
-  
-  
->>>>>>> Stashed changes
-  
   
   
 }
