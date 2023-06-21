@@ -8,23 +8,27 @@ package inc.pnw.db;
  */
 public class City {
 
-	private int id;
+	private int cityid;
 	private String title;
 	private String state;
 
 	public City(int cityid, String title, String state) {
 		super();
-		this.id = cityid;
+		this.cityid = cityid;
 		this.title = title;
 		this.state = state;
 	}
-
-	public int getId() {
-		return id;
+	
+	public City() {
+	  
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public int getCityid() {
+	    return cityid;
+	}
+
+	public void setCityid(int cityid) {
+	    this.cityid = cityid;
 	}
 
 	public String getTitle() {
@@ -39,8 +43,8 @@ public class City {
 		return state;
 	}
 
-	public void setState(String title) {
-		this.title = state;
+	public void setState(String state) {
+		this.state = state;
 	}
 
 }

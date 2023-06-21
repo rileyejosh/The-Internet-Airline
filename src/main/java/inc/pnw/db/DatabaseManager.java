@@ -48,7 +48,15 @@ public class DatabaseManager {
   public org.sql2o.Connection getConnection() {
     // try the following
     try {
+      Class.forName("com.mysql.cj.jdbc.Driver");
+    } catch (ClassNotFoundException e) {
+        // Handle the exception if the driver class is not found
+        e.printStackTrace();
+    }
+    try {
+
       sql2o = new Sql2o(connectionString, user, password);
+    
       // Connect to the database
       conn = sql2o.open();
       return conn;

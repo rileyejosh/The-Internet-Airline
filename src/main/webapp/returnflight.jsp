@@ -1,4 +1,6 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -52,15 +54,16 @@ body, h1, h2, h3, h4, h5, h6 {
 				</tr>
 				<c:forEach var="f" items="${rf}" varStatus="status">	
 					<tr>
-						<td><input type="radio" name="flight" value="${status.index + 1}"></td>
-						<td>${f.depCity}</td>
-						<td>${f.arrCity}</td>
-						<td>${f.fdate}</td>
-						<td>${f.fnumber}</td>
-						<td>${f.avail}</td>
-						<td>${f.classFlight}</td>
-						<td>${f.ftime}</td>
-						<td>${f.price}</td>
+						<td><input type="radio" name="flight"
+							value="${status.index + 1}"></td>
+						<td>${f.originCity.city.isPresent() ? f.originCity.city.get().title : ''}</td>
+  						<td>${f.arrivalCity.city.isPresent() ? f.arrivalCity.city.get().title : ''}</td>
+						<td><fmt:formatDate value="${f.flight.fdate}" pattern="yyyy-MM-dd" /></td>
+	        			<td>${f.flight.fnumber}</td>
+                        <td>${f.flight.available}</td>
+                        <td>${f.flight.classFlight}</td>
+                        <td>${f.flight.ftime}</td>
+                        <td>${f.flight.price}</td>
 
 					</tr>
 				</c:forEach>

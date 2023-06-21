@@ -15,19 +15,19 @@ public class CityModel {
 	private String state;
 
 	
-	public CityModel(int id, String title, String state) {
+	public CityModel(int cityid, String title, String state) {
 		super();
-		this.cityid = id;
+		this.cityid = cityid;
 		this.title = title;
 		this.state = state;
 	}
 
-	public int getId() {
+	public int getCityid() {
 		return cityid;
 	}
 
-	public void setId(int id) {
-		this.cityid = id;
+	public void setCityid(int cityid) {
+		this.cityid = cityid;
 	}
 
 	public String getTitle() {

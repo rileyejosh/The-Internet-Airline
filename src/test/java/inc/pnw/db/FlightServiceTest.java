@@ -32,7 +32,11 @@ class FlightServiceTest {
 
   @Test
   void testRetrieveReturnFlights() throws ClassNotFoundException, SQLException, ParseException {
+<<<<<<< Updated upstream
     assertEquals(30, FlightService.retrieveReturnFlights(6, ServiceBase.formatDate("2023-03-25")).get(0).getId());
+=======
+    assertEquals(30, FlightService.retrieveReturnFlights(6, ServiceBase.formatDate("2023-03-25")).get(0).getFid());
+>>>>>>> Stashed changes
     
   }
 

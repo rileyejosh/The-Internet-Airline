@@ -1,5 +1,12 @@
 package inc.pnw.db;
 
+<<<<<<< Updated upstream
+=======
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+>>>>>>> Stashed changes
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,5 +28,30 @@ public class ServiceBase {
     java.sql.Date newDate = new java.sql.Date(tempDate.getTime());
     return newDate;
   }
+<<<<<<< Updated upstream
 
+=======
+  
+  static String filterJson(String jsonStr, String key) throws JsonMappingException, JsonProcessingException {
+    ObjectMapper om = new ObjectMapper();
+    JsonNode jsonNode = om.readTree(jsonStr);
+    String value = " ";
+    if (jsonNode.has(key)) {
+      value = jsonNode.get(key).asText();
+  }
+    return value;
+  }
+  
+  public static void main(String[] args) {
+    
+    try {
+      System.out.println(ServiceBase.filterJson("{\"originCity\":\"Delhi\",\"destinationCity\":\"Tokyo\",\"date\":\"2023-03-25\",\"flightNumber\":\"6 \",\"available\":\"1\",\"flightClass\":\"25\",\"flightTime\":\"13:45:00\",\"price\":\"100.0\"}","flightNumber"));
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    
+  }
+ 
+>>>>>>> Stashed changes
 }

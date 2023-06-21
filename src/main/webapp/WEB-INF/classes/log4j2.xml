@@ -2,22 +2,21 @@
 <Configuration status="WARN">
 	<Appenders>
 		<Console name="LogToConsole" target="SYSTEM_OUT">
-			<PatternLayout
-				pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
 		</Console>
-		<File name="File" fileName="D:/info.log" append="true">
+		<File name="LogFile" fileName="D:/info.log" append="true">
 			<PatternLayout>
 				<Pattern>%d{HH:mm:ss.SSS} [%t] %-5level - %msg%n</Pattern>
 			</PatternLayout>
 		</File>
 	</Appenders>
 	<Loggers>
-		<Logger name="inc.puc" level="debug" additivity="false">
+		<Logger name="inc.pnw.db" level="debug" additivity="false">
 			<AppenderRef ref="LogToConsole" />
 		</Logger>
 		<Root level="debug">
 			<AppenderRef ref="LogToConsole" />
-			<AppenderRef ref="File" />
+			<AppenderRef ref="LogFile" />
 		</Root>
 	</Loggers>
 </Configuration>

@@ -1,4 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -54,7 +55,7 @@ input[type=submit]:hover {
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body>
-	
+
 	<!-- TODO: Fix navigation bar links -->
 	<!-- Navigation Bar -->
 	<div class="w3-bar w3-border w3-light-grey w3-center">
@@ -75,14 +76,15 @@ input[type=submit]:hover {
 		<h2>Travel with us.</h2>
 	</div>
 
+
 	<form action="" method="post">
 		<label for="ocity">Origin City</label> <select name="ocity">
 			<c:forEach items="${listCity}" var="ocity">
-				<option value="${ocity.id}">${ocity.title}</option>
+				<option value="${ocity.cityid}">${ocity.title}</option>
 			</c:forEach>
 		</select> <label for="dcity">Destination City</label> <select name="dcity">
 			<c:forEach items="${listCity}" var="dcity">
-				<option value="${dcity.id}">${dcity.title}</option>
+				<option value="${dcity.cityid}">${dcity.title}</option>
 			</c:forEach>
 		</select> <label for="ddate">Departure Date</label> <select class="year"
 			name="dyear"></select> <select class="month" name="dmonth"></select> <select
@@ -92,8 +94,9 @@ input[type=submit]:hover {
 		<button class="w3-button w3-cell-middle w3-black w3-padding-large"
 			type="submit" name="action" value="departure">Submit</button>
 	</form>
-	
-	 <%-- TODO: Point to January --%>
+
+
+	<%-- TODO: Point to January --%>
 	<script>
 		$(document).ready(
 				function() {
@@ -114,12 +117,12 @@ input[type=submit]:hover {
 						selectYear.append(yearElem);
 						currentYear--;
 					}
-					
+
 					for (var m = 1; m <= 12; m++) {
-					    var monthElem = document.createElement("option");
-					    monthElem.value = m;
-					    monthElem.textContent = monthNames[m-1];
-					    selectMonth.append(monthElem);
+						var monthElem = document.createElement("option");
+						monthElem.value = m;
+						monthElem.textContent = monthNames[m - 1];
+						selectMonth.append(monthElem);
 					}
 
 					var d = new Date();
@@ -152,7 +155,18 @@ input[type=submit]:hover {
 						}
 					}
 				});
-	</script>
+		
+	    // Get the origin city select element
+	    var originCitySelect = document.getElementsByName("originCity")[0];
 
+	    // Add an event listener to listen for changes
+	    originCitySelect.addEventListener("change", function() {
+	        // Parse the selected value to an integer
+	        var selectedCityId = parseInt(this.value);
+	        
+	        // Assign the parsed integer value back to the select element
+	        this.value = selectedCityId;
+	    });
+	</script>
 </body>
 </html>

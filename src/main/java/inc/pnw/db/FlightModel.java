@@ -18,19 +18,19 @@ public class FlightModel {
 	private Time ftime;
 	private double price;
 
-	public int getId() {
+	public int getFid() {
 		return fid;
 	}
 
-	public void setId(int fid) {
+	public void setFid(int fid) {
 		this.fid = fid;
 	}
 
-	public int getNumber() {
+	public int getFnumber() {
 		return fnumber;
 	}
 
-	public void setNumber(int fnumber) {
+	public void setFnumber(int fnumber) {
 		this.fnumber = fnumber;
 	}
 
@@ -75,20 +75,36 @@ public class FlightModel {
 		this.dest = dest;
 	}
 
-	public Date getDate() {
+	public Date getFdate() {
 		return fdate;
 	}
 
-	public void setDate(Date fdate) {
+	public void setFdate(Date fdate) {
 
 		this.fdate = fdate;
 	}
 
+<<<<<<< Updated upstream
 	public Time getTime() {
 		return ftime;
 	}
 
 	public void setTime(Time ftime) {
+=======
+<<<<<<< Updated upstream
+	public String getTime() {
+		return ftime;
+	}
+
+	public void setTime(String ftime) {
+=======
+	public Time getFtime() {
+		return ftime;
+	}
+
+	public void setFtime(Time ftime) {
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 
 		this.ftime = ftime;
 	}

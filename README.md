@@ -12,7 +12,5 @@ We will have a large database supporting dozens of major cities around the world
 
 In addition, we plan to utilize modern internet technologies such as JDBC, cookies, and servlets in our project.
 
-**Update**: *The Internet Airline is being remodeled using the MVC architecture.*
-
 ---
 
