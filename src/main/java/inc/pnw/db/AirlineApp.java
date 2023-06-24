@@ -7,9 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.logging.*;
 import javax.servlet.RequestDispatcher;
@@ -161,17 +159,15 @@ public class AirlineApp extends HttpServlet {
       // Retrieve the selected departure flight
       String[] selectedIndices = request.getParameterValues("selectedFlight");
       LOGGER.info(selectedIndices[0]);
-    
+
       java.sql.Date rFormattedDate;
       List<FlightDTO> listReturnFlight;
       HttpSession session = request.getSession();
-      
-      session.setAttribute("selectedIndices", selectedIndices);
       try {
 
 
         rFormattedDate = ServiceBase.formatDate(session.getAttribute("ReturnDate").toString());
-
+        
         if (selectedIndices != null) {
 
           listReturnFlight =
@@ -183,31 +179,12 @@ public class AirlineApp extends HttpServlet {
           session.setAttribute("rf", listReturnFlight);
           response.sendRedirect(request.getContextPath() + "/returnflight.jsp");
         }
+        LOGGER.info(rFormattedDate);
 
       } catch (Exception e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
-    }
-    if (action.equals("ticket")) {
-      HttpSession session = request.getSession();
-      
-      List<String> flightTickets = new ArrayList<String>();
-      
-      // get departure flight
-      flightTickets.add(Arrays.toString((String[]) session.getAttribute("selectedIndices")));
-
-      // get return flight (if it exists)
-      String[] selectedReturnFlight = request.getParameterValues("selectedReturnFlight");
-      if (selectedReturnFlight != null) {
-        LOGGER.info(Arrays.toString(selectedReturnFlight));
-        flightTickets.add((Arrays.toString(selectedReturnFlight)));
-          
-      }
-      session.setAttribute("ft", FlightService.getFlightTicket(flightTickets));
-      session.setAttribute("ftp", FlightService.getFlightTicketPrice(FlightService.getFlightTicket(flightTickets)));
-      response.sendRedirect(request.getContextPath() + "/ticketquantity.jsp");
-
     }
   }
 }
