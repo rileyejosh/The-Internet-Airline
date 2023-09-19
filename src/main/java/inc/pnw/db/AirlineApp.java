@@ -1,37 +1,28 @@
 package inc.pnw.db;
 
-import java.io.IOException;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Locale;
-import java.util.logging.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.FileWriter;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Servlet implementation class AirlineApp, responsible for receiving requests from the client. It
  * also invokes the DAO to get a list of items from the database, saves this list as an attribute in
  * the request, and then forwards the request to a JSP page.
- * 
+ *
  * @author Joshua Riley
  */
 
 /*
- * Declares the AirlineApp servlet. // The urlPatterns of the servlet mapping in your @WebServlet
+ * Declare the AirlineApp servlet. The urlPatterns of the servlet mapping in your @WebServlet
  * annotation should include the URL of the servlet that handles the form submission.
  */
 @WebServlet(urlPatterns = {"", "/departureflight", "/returnflight"})
@@ -56,7 +47,7 @@ public class AirlineApp extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     try {
-      LOGGER.info("In doGet");
+      LOGGER.info("In doGet method");
 
       String requestURI = request.getRequestURI();
       String page = null;
@@ -136,8 +127,6 @@ public class AirlineApp extends HttpServlet {
           String rDay = request.getParameter("rday");
           String rDate = rYear + "-" + rMonth + "-" + rDay;
 
-
-
           // Get current session
           session = request.getSession();
 
@@ -165,9 +154,8 @@ public class AirlineApp extends HttpServlet {
       HttpSession session = request.getSession();
       try {
 
-
         rFormattedDate = ServiceBase.formatDate(session.getAttribute("ReturnDate").toString());
-        
+
         if (selectedIndices != null) {
 
           listReturnFlight =

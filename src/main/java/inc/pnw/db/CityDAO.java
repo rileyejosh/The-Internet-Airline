@@ -74,12 +74,13 @@ public class CityDAO implements Dao<City, Object> {
       
       City c = (City) t;
       
-      String sql = "INSERT INTO city (cityid, title, state) " +
-                  "VALUES (:cityid, :title, :state)";
+      String sql = "INSERT INTO city (cityid, title, state, iata_code) " +
+                  "VALUES (:cityid, :title, :state, :iata_code)";
       connection.createQuery(sql)
         .addParameter("cityid", c.getCityid())
         .addParameter("title", c.getTitle())
         .addParameter("state", c.getState())
+        .addParameter("iata_code", c.getIata_Code())
         .executeUpdate();
       
     }

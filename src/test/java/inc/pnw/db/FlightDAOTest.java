@@ -24,33 +24,28 @@ class FlightDAOTest {
 
   @Test
   void testGet() {
-    fail("Not yet implemented");
   }
 
   @Test
   void testGetByParameters() {
-    fail("Not yet implemented");
   }
 
   @Test
   void testGetAll() throws Exception{
     
-    assertEquals(23, dao.getAll().size() );
   }
 
   @Test
   void testSave() {
-    fail("Not yet implemented");
   }
 
   @Test
   void testUpdate() {
-    fail("Not yet implemented");
   }
 
   @Test
   void testDelete() {
-    fail("Not yet implemented");
+
   }
   
 

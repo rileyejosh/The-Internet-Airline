@@ -29,10 +29,10 @@ public class FlightDAO implements Dao<FlightModel, Object> {
 
   @Override
   public Optional<FlightModel> get(Object id) {
-
+    
     try (org.sql2o.Connection connection = dbManager.getConnection()) {
       String sql = "SELECT * FROM Flight WHERE fid = :fid";
-
+ 
       flightDto = connection.createQuery(sql).addParameter("fid", id)
           .executeAndFetchFirst(FlightModel.class);
 
@@ -67,8 +67,9 @@ public class FlightDAO implements Dao<FlightModel, Object> {
         for (Map.Entry<String, Object> entry : parameters.entrySet()) {
             String key = entry.getKey();
             Object value = entry.getValue();
-
+  
             query.addParameter(key, value);
+
         }
         flights = query.executeAndFetch(FlightModel.class);
     } catch (Exception ex) {
@@ -91,12 +92,13 @@ public class FlightDAO implements Dao<FlightModel, Object> {
 
     // Convert the java.time.LocalDate to java.sql.Date
     java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
-    fMap.put("orig", "3");
-    fMap.put("dest", "1");
+    fMap.put("orig", 3);
+    fMap.put("dest", 1);
     fMap.put("fdate", sqlDate);
     FlightDAO fd = new FlightDAO();
-    System.out.println(fd.getByParameters(fMap));
-    
+   // System.out.println(fd.getByParameters(fMap));
+    Optional<FlightModel> fm = fd.get(149);
+    System.out.println(fm.get().getCapacity());
     
   }
  
@@ -120,7 +122,26 @@ public class FlightDAO implements Dao<FlightModel, Object> {
 
   @Override
   public void save(Object t) {
-    // TODO Auto-generated method stub
+    DatabaseManager dbManager = new DatabaseManager();
+    try(org.sql2o.Connection connection = dbManager.getConnection()) {
+      
+      FlightModel f = (FlightModel) t;
+      
+      String sql = "INSERT INTO flight (fnumber, fdate, ftime, price, class, capacity, avaliable, orig, dest) " +
+                  "VALUES (:fnumber, :fdate, :ftime, :price, :class, :capacity, :avaliable, :orig, :dest)";
+      connection.createQuery(sql)
+        .addParameter("fnumber", f.getFnumber())
+        .addParameter("fdate", f.getFdate())
+        .addParameter("ftime", f.getFtime())
+        .addParameter("price", f.getPrice())
+        .addParameter("class", f.getClassFlight())
+        .addParameter("capacity", f.getCapacity())
+        .addParameter("avaliable", f.getAvailable())
+        .addParameter("dest", f.getDest())
+        .addParameter("orig", f.getOrig())
+        .executeUpdate();
+      
+    }
 
   }
 

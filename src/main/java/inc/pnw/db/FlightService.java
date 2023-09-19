@@ -80,8 +80,8 @@ public class FlightService extends ServiceBase {
     Map<String, Object> fMap = new HashMap<String, Object>();
     fMap.put("orig", origCity);
     fMap.put("dest", destCity);
-
     fMap.put("fdate", dDate);
+    
     flightDao = new FlightDAO();
 
     return flightDao.getByParameters(fMap);

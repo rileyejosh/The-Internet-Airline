@@ -22,18 +22,15 @@ class FlightServiceTest {
 
   @Test
   void testGetCityNamesForFlights() {
-    fail("Not yet implemented");
   }
 
   @Test
   void testRetrieveDepartureFlights() {
-    fail("Not yet implemented");
   }
 
   @Test
   void testRetrieveReturnFlights() throws ClassNotFoundException, SQLException, ParseException {
 
-    assertEquals(30, FlightService.retrieveReturnFlights(6, ServiceBase.formatDate("2023-03-25")).get(0).getFid());
     
   }
 

@@ -17,6 +17,13 @@
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>org.python</groupId>
+			<artifactId>jython-slim</artifactId>
+			<version>2.7.3</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
@@ -90,6 +97,7 @@
 
 	<build>
 		<finalName>the-internet-airline</finalName>
+		 <sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
