@@ -1,5 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -52,24 +52,26 @@ body, h1, h2, h3, h4, h5, h6 {
 					<th>Flight Time</th>
 					<th>Price</th>
 				</tr>
-				<c:forEach var="f" items="${rf}" varStatus="status">	
+				<c:forEach var="f" items="${rf}" varStatus="status">
 					<tr>
 						<td><input type="radio" name="flight"
 							value="${status.index + 1}"></td>
 						<td>${f.originCity.city.isPresent() ? f.originCity.city.get().title : ''}</td>
-  						<td>${f.arrivalCity.city.isPresent() ? f.arrivalCity.city.get().title : ''}</td>
-						<td><fmt:formatDate value="${f.flight.fdate}" pattern="yyyy-MM-dd" /></td>
-	        			<td>${f.flight.fnumber}</td>
-                        <td>${f.flight.available}</td>
-                        <td>${f.flight.classFlight}</td>
-                        <td>${f.flight.ftime}</td>
-                        <td>${f.flight.price}</td>
+						<td>${f.arrivalCity.city.isPresent() ? f.arrivalCity.city.get().title : ''}</td>
+						<td><fmt:formatDate value="${f.flight.fdate}"
+								pattern="yyyy-MM-dd" /></td>
+						<td>${f.flight.fnumber}</td>
+						<td>${f.flight.available}</td>
+						<td>${f.flight.classFlight}</td>
+						<td>${f.flight.ftime}</td>
+						<td>${f.flight.price}</td>
 
 					</tr>
 				</c:forEach>
 				<tr>
-						<td><input type="radio" name="flight" value="${status.index + 1}"></td>
-						<td>No Returning Flight</td>
+					<td><input type="radio" name="flight"
+						value="${status.index + 1}"></td>
+					<td>No Returning Flight</td>
 				</tr>
 			</table>
 			<button class="w3-button w3-cell-middle w3-black w3-padding-large"
