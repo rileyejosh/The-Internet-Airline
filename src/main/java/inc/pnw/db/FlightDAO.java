@@ -127,16 +127,16 @@ public class FlightDAO implements Dao<FlightModel, Object> {
       
       FlightModel f = (FlightModel) t;
       
-      String sql = "INSERT INTO flight (fnumber, fdate, ftime, price, class, capacity, avaliable, orig, dest) " +
-                  "VALUES (:fnumber, :fdate, :ftime, :price, :class, :capacity, :avaliable, :orig, :dest)";
+      String sql = "INSERT INTO flight (fnumber, fdate, ftime, price, classFlight, capacity, available, orig, dest) " +
+                  "VALUES (:fnumber, :fdate, :ftime, :price, :classFlight, :capacity, :available, :orig, :dest)";
       connection.createQuery(sql)
         .addParameter("fnumber", f.getFnumber())
         .addParameter("fdate", f.getFdate())
         .addParameter("ftime", f.getFtime())
         .addParameter("price", f.getPrice())
-        .addParameter("class", f.getClassFlight())
+        .addParameter("classFlight", f.getClassFlight())
         .addParameter("capacity", f.getCapacity())
-        .addParameter("avaliable", f.getAvailable())
+        .addParameter("available", f.getAvailable())
         .addParameter("dest", f.getDest())
         .addParameter("orig", f.getOrig())
         .executeUpdate();
