@@ -21,34 +21,32 @@ import java.util.List;
 
 public class ApiIntegrationHandler {
 
-//Create an HTTP client
-CloseableHttpClient httpClient = HttpClients.createDefault();
+  // Create an HTTP client
+  CloseableHttpClient httpClient = HttpClients.createDefault();
 
-//Prepare the API request
-static String url;
-static HttpGet request;
+  // Prepare the API request
+  static String url;
+  static HttpGet request;
 
-//Set the Authorization header with your API key and secret
-static String apiKey = "API_KEY";
-static String apiSecret = "API_SECRET";
-static String accessKey = "ACCESS_KEY";
+  // Set the Authorization header with your API key and secret
+  static String apiKey = "API_KEY";
+  static String apiSecret = "API_SECRET";
+  static String accessKey = "ACCESS_KEY";
 
-private static String getAmadeusApiCredentials() {
-  return accessKey;
-
-
+  private static String getAmadeusApiCredentials() {
+    return accessKey;
 
 
 
-}
+  }
 
-private static String getAirLabsApiCredentials() {
-  return accessKey;
+  private static String getAirLabsApiCredentials() {
+    return accessKey;
 
 
-}
+  }
 
-private static String getAviationApiCredentials() {
+  private static String getAviationApiCredentials() {
 
     return System.getenv(accessKey);
 
@@ -102,20 +100,20 @@ private static String getAviationApiCredentials() {
         if (json.has("data")) {
           JsonArray dataArray = json.getAsJsonArray("data");
           for (JsonElement element : dataArray) {
-              JsonObject data = element.getAsJsonObject();
-              if (data.has("city_id") && data.has("city_name") && data.has("iata_code")) {
+            JsonObject data = element.getAsJsonObject();
+            if (data.has("city_id") && data.has("city_name") && data.has("iata_code")) {
 
-                  String cityName = data.get("city_name").getAsString();
-                  String state = data.get("iata_code").getAsString();
-                  // Create a new City object for each JSON object
-                  City city = new City();
-                  city.setTitle(cityName);
-                  city.setState(state);
-                  cities.add(city);
+              String cityName = data.get("city_name").getAsString();
+              String state = data.get("iata_code").getAsString();
+              // Create a new City object for each JSON object
+              City city = new City();
+              city.setTitle(cityName);
+              city.setState(state);
+              cities.add(city);
 
-              }
+            }
           }
-      }
+        }
       } catch (ParseException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
@@ -125,13 +123,13 @@ private static String getAviationApiCredentials() {
       }
 
       // Print the response body
-      for(City c : cities) {
+      for (City c : cities) {
 
         cityDao.save(c);
 
       }
 
-  } finally {
+    } finally {
       // Close the HttpClient and response
       try {
         response.close();
@@ -145,41 +143,36 @@ private static String getAviationApiCredentials() {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
-  }
-  }
-
-  public static void fetchDBWithFlights() {
-
-
+    }
   }
 
   public static List<String> extractStringsFromFile(String filePath) {
     List<String> extractedStrings = new ArrayList<>();
     CityDAO cityDao = new CityDAO();
     try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split(":");
-            if (parts.length >= 4) {
-                String secondString = parts[1];
-                String fourthString = parts[3];
-                City c = new City();
-                c.setIata_Code(secondString);
-                c.setTitle(fourthString);
-                c.setState("N");
-                cityDao.save(c);
+      String line;
+      while ((line = reader.readLine()) != null) {
+        String[] parts = line.split(":");
+        if (parts.length >= 4) {
+          String secondString = parts[1];
+          String fourthString = parts[3];
+          City c = new City();
+          c.setIata_Code(secondString);
+          c.setTitle(fourthString);
+          c.setState("N");
+          cityDao.save(c);
 
-                // Add the second and fourth strings to the list
-//                extractedStrings.add(secondString);
-//                extractedStrings.add(fourthString);
-            }
+          // Add the second and fourth strings to the list
+          // extractedStrings.add(secondString);
+          // extractedStrings.add(fourthString);
         }
+      }
     } catch (IOException e) {
-        e.printStackTrace();
+      e.printStackTrace();
     }
 
     return extractedStrings;
-}
+  }
 
 
 }
