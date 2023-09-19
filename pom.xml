@@ -17,6 +17,19 @@
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>org.python</groupId>
+			<artifactId>jython-slim</artifactId>
+			<version>2.7.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.13</version>
+		</dependency>
+
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
@@ -32,8 +45,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.9-rc</version>
 		</dependency>
-		<!--
-		https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
@@ -84,6 +96,7 @@
 
 	<build>
 		<finalName>the-internet-airline</finalName>
+		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

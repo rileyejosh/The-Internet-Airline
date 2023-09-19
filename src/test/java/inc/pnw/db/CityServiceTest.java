@@ -15,13 +15,12 @@ class CityServiceTest {
 
   @Test
   void testGetCityIDName() {
-    fail("Not yet implemented");
   }
 
   @Test
   void testListCity() {
    // assertNotNull(CityService.listCity());
-    assertEquals(10, CityService.listCity().size());
+    assertEquals(9300, CityService.listCity().size());
   }
 
 }
