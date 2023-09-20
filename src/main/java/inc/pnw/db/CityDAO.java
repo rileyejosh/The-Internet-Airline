@@ -68,8 +68,23 @@ public class CityDAO implements Dao<City, Object> {
 
   @Override
   public void save(Object t) {
-    // TODO Auto-generated method stub
-
+    
+    DatabaseManager dbManager = new DatabaseManager();
+    try(org.sql2o.Connection connection = dbManager.getConnection()) {
+      
+      City c = (City) t;
+      
+      String sql = "INSERT INTO city (cityid, title, state, iata_code) " +
+                  "VALUES (:cityid, :title, :state, :iata_code)";
+      connection.createQuery(sql)
+        .addParameter("cityid", c.getCityid())
+        .addParameter("title", c.getTitle())
+        .addParameter("state", c.getState())
+        .addParameter("iata_code", c.getIata_Code())
+        .executeUpdate();
+      
+    }
+    
   }
 
   @Override

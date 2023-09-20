@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -87,10 +87,10 @@ input[type=submit]:hover {
 				<option value="${dcity.cityid}">${dcity.title}</option>
 			</c:forEach>
 		</select> <label for="ddate">Departure Date</label> <select class="year"
-			name="dyear"></select> <select class="month" name="dmonth"></select> <select
-			class="day" name="dday"></select> <label for="rdate">Return
-			Date</label> <select class="year" name="ryear"></select> <select class="month"
-			name="rmonth"></select> <select class="day" name="rday"></select>
+			name="dyear"></select> <select class="month" name="dmonth"></select>
+		<select class="day" name="dday"></select> <label for="rdate">Return
+			Date</label> <select class="year" name="ryear"></select> <select
+			class="month" name="rmonth"></select> <select class="day" name="rday"></select>
 		<button class="w3-button w3-cell-middle w3-black w3-padding-large"
 			type="submit" name="action" value="departure">Submit</button>
 	</form>

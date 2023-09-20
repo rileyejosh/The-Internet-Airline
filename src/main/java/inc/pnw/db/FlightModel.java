@@ -11,9 +11,9 @@ import java.sql.Time;
  */
 public class FlightModel {
 
-	private int fid, fnumber, classflight, capacity, available;
-    protected int orig;
-    protected int dest;
+	private int fid, fnumber, classFlight, capacity, available;
+    private int orig;
+    private int dest;
 	Date fdate;
 	private Time ftime;
 	private double price;
@@ -34,12 +34,12 @@ public class FlightModel {
 		this.fnumber = fnumber;
 	}
 
-	public int getclassFlight() {
-		return classflight;
+	public int getClassFlight() {
+		return classFlight;
 	}
 
 	public void setClassFlight(int classFlight) {
-		this.classflight = classFlight;
+		this.classFlight = classFlight;
 	}
 
 	public int getCapacity() {

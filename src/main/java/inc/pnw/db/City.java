@@ -11,7 +11,8 @@ public class City {
 	private int cityid;
 	private String title;
 	private String state;
-
+	private String iata_code;
+	
 	public City(int cityid, String title, String state) {
 		super();
 		this.cityid = cityid;
@@ -22,7 +23,17 @@ public class City {
 	public City() {
 	  
 	}
-
+	
+	public String getIata_Code() {
+	  
+	  return iata_code;
+	}
+	
+	public void setIata_Code(String iac) {
+	  
+	  this.iata_code = iac;
+	}
+	
 	public int getCityid() {
 	    return cityid;
 	}
