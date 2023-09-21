@@ -112,17 +112,81 @@ public class FlightService extends ServiceBase {
       }
       
     }
-    /**
-     *  SELECT G.*
-        FROM Flight F
-        JOIN Flight G ON F.orig = G.dest AND F.dest = G.orig
-        WHERE F.fid = 6
-        AND G.fdate = '2023-03-25'
-        ORDER BY G.ftime;
-     */
-    // Should return -- '30', '987', '2023-03-25', '13:15:00', '120', '1', '250', '200', '1', '3'
     
     return flights;
     
   }
+  
+  static FlightDTO retrieveFlight(String jsonStr) {
+
+    FlightDTO flight = new FlightDTO();
+    flight.setOriginCity(new CityDTO());
+    flight.setArrivalCity(new CityDTO());
+    flight.setFlight(new FlightModel());
+
+    List<String> flightStr = ServiceBase.convertJsonToList(jsonStr);
+    for(int i = 0; i < flightStr.size(); i++) {
+
+      switch (i) {
+        case 0:
+            flight.getOriginCity().setCity(Optional.ofNullable(new City()));
+            flight.getOriginCity().getCity().get().setTitle(flightStr.get(i));
+            break;
+        case 1:
+            flight.getArrivalCity().setCity(Optional.ofNullable(new City()));
+            flight.getArrivalCity().getCity().get().setTitle(flightStr.get(i));
+            break;
+        case 2:
+            flight.getFlight().setFdate(java.sql.Date.valueOf(flightStr.get(i).trim()));
+            break;
+        case 3:
+            flight.getFlight().setFnumber(Integer.valueOf(flightStr.get(i).trim()));
+            break;
+        case 4:
+            flight.getFlight().setAvailable(Integer.valueOf(flightStr.get(i).trim()));
+            break;
+        case 5:
+            flight.getFlight().setClassFlight(Integer.valueOf(flightStr.get(i).trim()));
+            break;
+        case 6:
+            flight.getFlight().setFtime(java.sql.Time.valueOf(flightStr.get(i).trim()));
+            break;
+        case 7:
+            flight.getFlight().setPrice(Float.valueOf( flightStr.get(i).trim()));
+
+      }
+
+    }
+
+    return flight;
+  }
+
+  static List<FlightDTO> getFlightTicket(List<String> flight) {
+
+    List<FlightDTO> flightTicket = new ArrayList<FlightDTO>();
+
+    for(String s : flight ) {
+
+      flightTicket.add(FlightService.retrieveFlight(s.replaceAll("\\[|\\]", "")));
+    }
+
+    return flightTicket;
+  }
+
+  static int getFlightTicketPrice(List<FlightDTO> f) {
+
+    int sum = 0;
+
+    for(FlightDTO dto : f)
+      sum += dto.getFlight().getPrice();
+
+//    if(f.size() > 1)
+//      double originalPrice = 100.0;
+//    double discountPercentage = 40.0;
+//    double discountAmount = originalPrice * (discountPercentage / 100.0);
+//    double finalPrice = originalPrice - discountAmount;
+    return sum;
+  }
+
+
 }

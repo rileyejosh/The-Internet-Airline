@@ -74,29 +74,43 @@ body, h1, h2, h3, h4, h5, h6 {
 					<td>No Returning Flight</td>
 				</tr>
 			</table>
+			<input type="hidden" id="selectedReturnFlight"
+				name="selectedReturnFlight" /> <input type="hidden"
+				id="selectedIndices" name="selectedIndices" />
 			<button class="w3-button w3-cell-middle w3-black w3-padding-large"
-				type="submit" name="action" value="return" onclick="getValue()">Submit</button>
+				type="submit" name="action" value="ticket"
+				onclick="return getValue()">Submit</button>
 		</form>
 	</div>
 
 	<script>
 		function getValue() {
-			// Get all radio buttons with the name "flight"
 			var radios = document.getElementsByName('flight');
-
-			// Loop through each radio button
+			var selectedReturnFlight = "";
 			for (var i = 0; i < radios.length; i++) {
-				// Check if the radio button is checked
 				if (radios[i].checked) {
-					// Get the value of the checked radio button
-					var selectedValue = radios[i].value;
-					// Do something with the selected value
-					alert("You selected " + selectedValue);
-					return;
+					var row = radios[i].parentNode.parentNode; // Get the parent <tr> element
+					var rowData = {
+						originCity : row.cells[1].textContent,
+						destinationCity : row.cells[2].textContent,
+						date : row.cells[3].textContent,
+						flightNumber : row.cells[4].textContent,
+						available : row.cells[5].textContent,
+						flightClass : row.cells[6].textContent,
+						flightTime : row.cells[7].textContent,
+						price : row.cells[8].textContent
+					};
+					selectedReturnFlight = JSON.stringify(rowData);
+					break;
 				}
 			}
-			// If no radio button is checked
-			alert("Please select a flight; otherwise, select no return flight option.");
+			if (selectedReturnFlight !== "") {
+				document.getElementById('selectedReturnFlight').value = selectedReturnFlight;
+				return true;
+			} else {
+				alert("Please select a flight");
+				return false;
+			}
 		}
 	</script>
 

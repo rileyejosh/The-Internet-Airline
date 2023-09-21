@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -25,7 +27,7 @@ import java.util.List;
  * Declare the AirlineApp servlet. The urlPatterns of the servlet mapping in your @WebServlet
  * annotation should include the URL of the servlet that handles the form submission.
  */
-@WebServlet(urlPatterns = {"", "/departureflight", "/returnflight"})
+@WebServlet(urlPatterns = {"", "/departureflight", "/returnflight", "/ticketquantity"})
 public class AirlineApp extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -60,7 +62,10 @@ public class AirlineApp extends HttpServlet {
 
       } else if (requestURI.endsWith("returnflight")) {
         page = "/returnflight.jsp";
-      } else {
+      
+      } else if(requestURI.endsWith("ticketquantity"))
+        page = "/ticketquantity.jsp";
+      else {
         page = "/error.jsp";
       }
 
@@ -147,32 +152,53 @@ public class AirlineApp extends HttpServlet {
       FlightService.action = "return";
       // Retrieve the selected departure flight
       String[] selectedIndices = request.getParameterValues("selectedFlight");
-      LOGGER.info(selectedIndices[0]);
+      LOGGER.info(selectedIndices.length);
+
 
       java.sql.Date rFormattedDate;
       List<FlightDTO> listReturnFlight;
       HttpSession session = request.getSession();
+      session.setAttribute("selectedIndices", selectedIndices);
+      LOGGER.info(selectedIndices[0]);
       try {
 
         rFormattedDate = ServiceBase.formatDate(session.getAttribute("ReturnDate").toString());
-
         if (selectedIndices != null) {
 
           listReturnFlight =
               FlightService.getCityNamesForFlights(FlightService.retrieveReturnFlights(
-                  Integer
-                      .parseInt(ServiceBase.filterJson(selectedIndices[0], "flightNumber").trim()),
+                  Integer.parseInt(ServiceBase.filterJson(selectedIndices[0], "dFid").trim()),
                   rFormattedDate));
           LOGGER.info(listReturnFlight.size());
           session.setAttribute("rf", listReturnFlight);
           response.sendRedirect(request.getContextPath() + "/returnflight.jsp");
         }
-        LOGGER.info(rFormattedDate);
 
       } catch (Exception e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
       }
+    }
+    if (action.equals("ticket")) {
+      HttpSession session = request.getSession();
+
+      List<String> flightTickets = new ArrayList<String>();
+
+      // get departure flight
+      flightTickets.add(Arrays.toString((String[]) session.getAttribute("selectedIndices")));
+      LOGGER.info(flightTickets.get(0));
+      // get return flight (if it exists)
+      String[] selectedReturnFlight = request.getParameterValues("selectedReturnFlight");
+      LOGGER.info("Selected return flight " + selectedReturnFlight[0].toString());
+      if (!selectedReturnFlight[0].equalsIgnoreCase("")) {
+        flightTickets.add((Arrays.toString(selectedReturnFlight)));
+      }
+      LOGGER.info("# of Flight ticket " + flightTickets.size());
+      session.setAttribute("ft", FlightService.getFlightTicket(flightTickets));
+      session.setAttribute("ftp",
+          FlightService.getFlightTicketPrice(FlightService.getFlightTicket(flightTickets)));
+      response.sendRedirect(request.getContextPath() + "/ticketquantity.jsp");
+
     }
   }
 }

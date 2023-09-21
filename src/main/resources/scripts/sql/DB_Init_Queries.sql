@@ -22,7 +22,8 @@ CREATE TABLE Customer (
 CREATE TABLE City (
 	cityid INTEGER NOT NULL PRIMARY KEY,
 	title CHAR(50) NOT NULL,
-	state CHAR(2) NOT NULL
+	state CHAR(2) NOT NULL,
+	iata_code char(3)
 );
 
 /** 
@@ -42,12 +43,12 @@ CREATE TABLE Flight (
 	fnumber INTEGER,
 	fdate DATE NOT NULL,
 	ftime TIME NOT NULL,
-		price REAL NOT NULL,
-		class INTEGER NOT NULL,
-		capacity INTEGER NOT NULL,
-		available INTEGER NOT NULL,
+	price REAL NOT NULL,
+	class INTEGER NOT NULL,
+	capacity INTEGER NOT NULL,
+	available INTEGER NOT NULL,
 	orig INTEGER NOT NULL,
-		dest INTEGER NOT NULL,
+	dest INTEGER NOT NULL,
 	FOREIGN KEY (orig) REFERENCES City,
 	FOREIGN KEY (dest) REFERENCES City 
 );
