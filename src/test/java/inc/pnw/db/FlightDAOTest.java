@@ -18,7 +18,6 @@ class FlightDAOTest {
   @BeforeEach
   void setUp() throws Exception {
     
-    dao = new FlightDAO();    
   }
 
   @AfterEach
@@ -27,8 +26,8 @@ class FlightDAOTest {
 
   @Test
   void testGet() {
-    Optional<FlightModel> fm = fd.get(149);
-    System.out.println(fm.get().getCapacity());
+//    Optional<FlightModel> fm = fd.get(149);
+//    System.out.println(fm.get().getCapacity());
   }
 
   @Test

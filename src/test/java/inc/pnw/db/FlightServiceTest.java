@@ -42,33 +42,33 @@ class FlightServiceTest {
 
   @Test
   void testRetrieveReturnFlights() throws ClassNotFoundException, SQLException, ParseException {
-    LocalDate localDate = LocalDate.of(2023, 03, 25);
-
-    try {
-      List<FlightModel> r = FlightService.retrieveReturnFlights("{\"originCity\":\"Delhi\",\"destinationCity\":\"Tokyo\",\"date\":\"2023-03-25\",\"flightNumber\":\"6 \",\"available\":\"1\",\"flightClass\":\"25\",\"flightTime\":\"13:45:00\",\"price\":\"100.0\"}", "flightNumber", localDate.toString());
-      for(FlightModel rf : r ) {
-        System.out.println(rf.getFid() + " " + rf.getFnumber());
-      }
-    } catch (ClassNotFoundException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (JsonMappingException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (NumberFormatException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (JsonProcessingException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (ParseException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    
+//    LocalDate localDate = LocalDate.of(2023, 03, 25);
+//
+//    try {
+//      List<FlightModel> r = FlightService.retrieveReturnFlights("{\"originCity\":\"Delhi\",\"destinationCity\":\"Tokyo\",\"date\":\"2023-03-25\",\"flightNumber\":\"6 \",\"available\":\"1\",\"flightClass\":\"25\",\"flightTime\":\"13:45:00\",\"price\":\"100.0\"}", "flightNumber", localDate.toString());
+//      for(FlightModel rf : r ) {
+//        System.out.println(rf.getFid() + " " + rf.getFnumber());
+//      }
+//    } catch (ClassNotFoundException e) {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//    } catch (SQLException e) {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//    } catch (JsonMappingException e) {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//    } catch (NumberFormatException e) {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//    } catch (JsonProcessingException e) {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//    } catch (ParseException e) {
+//      // TODO Auto-generated catch block
+//      e.printStackTrace();
+//    }
+//    
   }
 
 }

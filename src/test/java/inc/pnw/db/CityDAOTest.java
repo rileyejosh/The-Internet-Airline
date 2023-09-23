@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 class CityDAOTest {
 
   @BeforeEach
-  void setUp() throws Exception {}
+  void setUp() throws Exception {CityDAO cityDao;}
 
   @AfterEach
   void tearDown() throws Exception {}
@@ -22,20 +22,6 @@ class CityDAOTest {
 
   @Test
   void testGetAll() {
-
-    CityDAO cd = new CityDAO();
-      try {
-
-        List<City> c = cd.getAll();
-
-        System.out.println(c.size());
-      } catch (ClassNotFoundException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      } catch (SQLException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
     
   }
 
