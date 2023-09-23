@@ -19,7 +19,7 @@ class CityServiceTest {
 
   @Test
   void testListCity() {
-   // assertNotNull(CityService.listCity());
+    
     assertEquals(9300, CityService.listCity().size());
   }
 

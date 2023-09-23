@@ -39,7 +39,7 @@ body, h1, h2, h3, h4, h5, h6 {
 			Us</a>
 	</div>
 
-<div class="w3-container">
+	<div class="w3-container">
 		<h2>Ticket Quantity</h2>
 		<p>Ticket Results:</p>
 		<form action=" " method="post">
@@ -54,9 +54,6 @@ body, h1, h2, h3, h4, h5, h6 {
 					<th>Flight Class</th>
 					<th>Flight Time</th>
 					<th>Price</th>
-
-
-
 				</tr>
 
 				<tr>
@@ -69,10 +66,20 @@ body, h1, h2, h3, h4, h5, h6 {
 							}
 							%>
 					</select></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+
 				</tr>
 				<c:forEach var="f" items="${ft}" varStatus="status">
 					<tr>
-						<td></td>
+						<td><input type="radio" name="flight"
+							value="${status.index + 1}"></td>
 						<td>${f.originCity.city.isPresent() ? f.originCity.city.get().title : ''}</td>
 						<td>${f.arrivalCity.city.isPresent() ? f.arrivalCity.city.get().title : ''}</td>
 						<td><fmt:formatDate value="${f.flight.fdate}"
@@ -89,7 +96,8 @@ body, h1, h2, h3, h4, h5, h6 {
 
 			</table>
 			<button class="w3-button w3-cell-middle w3-black w3-padding-large"
-				type="submit" name="action" value="ticket" onclick="return getValue()">Submit</button>
+				type="submit" name="action" value="ticket"
+				onclick="return getValue()">Submit</button>
 		</form>
 	</div>
 

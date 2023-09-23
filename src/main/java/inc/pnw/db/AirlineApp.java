@@ -113,10 +113,8 @@ public class AirlineApp extends HttpServlet {
       try {
 
         LOGGER.info("Retrieving Departure Flights");
-        java.sql.Date dDate = ServiceBase.formatDate(dateString);
-        LOGGER.info(dDate.toString());
         List<FlightDTO> listDepartureFlight = FlightService.getCityNamesForFlights(
-            FlightService.retrieveDepartureFlights(origCity, destCity, dDate));
+            FlightService.retrieveDepartureFlights(origCity, destCity, dateString));
 
         try {
 
@@ -152,24 +150,19 @@ public class AirlineApp extends HttpServlet {
       FlightService.action = "return";
       // Retrieve the selected departure flight
       String[] selectedIndices = request.getParameterValues("selectedFlight");
-      LOGGER.info(selectedIndices.length);
 
-
-      java.sql.Date rFormattedDate;
       List<FlightDTO> listReturnFlight;
       HttpSession session = request.getSession();
       session.setAttribute("selectedIndices", selectedIndices);
-      LOGGER.info(selectedIndices[0]);
       try {
 
-        rFormattedDate = ServiceBase.formatDate(session.getAttribute("ReturnDate").toString());
         if (selectedIndices != null) {
+          LOGGER.info("Retrieving Return Flights");
 
           listReturnFlight =
               FlightService.getCityNamesForFlights(FlightService.retrieveReturnFlights(
-                  Integer.parseInt(ServiceBase.filterJson(selectedIndices[0], "dFid").trim()),
-                  rFormattedDate));
-          LOGGER.info(listReturnFlight.size());
+                  selectedIndices[0],
+                  session.getAttribute("ReturnDate").toString()));
           session.setAttribute("rf", listReturnFlight);
           response.sendRedirect(request.getContextPath() + "/returnflight.jsp");
         }
@@ -180,25 +173,28 @@ public class AirlineApp extends HttpServlet {
       }
     }
     if (action.equals("ticket")) {
+      LOGGER.info("Do Ticket");
+
       HttpSession session = request.getSession();
 
       List<String> flightTickets = new ArrayList<String>();
 
       // get departure flight
       flightTickets.add(Arrays.toString((String[]) session.getAttribute("selectedIndices")));
-      LOGGER.info(flightTickets.get(0));
       // get return flight (if it exists)
       String[] selectedReturnFlight = request.getParameterValues("selectedReturnFlight");
-      LOGGER.info("Selected return flight " + selectedReturnFlight[0].toString());
       if (!selectedReturnFlight[0].equalsIgnoreCase("")) {
         flightTickets.add((Arrays.toString(selectedReturnFlight)));
       }
-      LOGGER.info("# of Flight ticket " + flightTickets.size());
       session.setAttribute("ft", FlightService.getFlightTicket(flightTickets));
       session.setAttribute("ftp",
           FlightService.getFlightTicketPrice(FlightService.getFlightTicket(flightTickets)));
+      LOGGER.info("Retrieving Tickets");
+      
       response.sendRedirect(request.getContextPath() + "/ticketquantity.jsp");
-
+      
+      
+    
     }
   }
 }

@@ -50,9 +50,5 @@ public class CityService extends ServiceBase {
   }
 
   
-  public static void main(String[] args) {
-    
-    System.out.println(CityService.listCity().get(0).getCityid());
-    
-  }
+
 }

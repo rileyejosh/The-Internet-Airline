@@ -117,20 +117,5 @@ public class CityDAO implements Dao<City, Object> {
     return cities;
   }
 
-  public static void main(String[] args) {
-    CityDAO cd = new CityDAO();
-    try {
-
-      List<City> c = cd.getAll();
-
-      System.out.println(c.size());
-    } catch (ClassNotFoundException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (SQLException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-  }
 }
 

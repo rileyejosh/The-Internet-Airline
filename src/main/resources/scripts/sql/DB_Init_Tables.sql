@@ -1,4 +1,4 @@
--- Database Initialization Queries for AirlineDB tables --
+-- DDL Commands for AirlineDB tables --
 
 /** 
  * This table stores all of the information associated with a given user. 

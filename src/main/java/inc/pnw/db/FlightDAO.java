@@ -83,25 +83,6 @@ public class FlightDAO implements Dao<FlightModel, Object> {
     return flights;
 }
 
-  
-  public static void main(String[] args) {
-    List<FlightModel> testF = new ArrayList<FlightModel>();
-    
-    Map<String, Object> fMap = new HashMap<String, Object>();
-    LocalDate localDate = LocalDate.of(2023, 3, 25);
-
-    // Convert the java.time.LocalDate to java.sql.Date
-    java.sql.Date sqlDate = java.sql.Date.valueOf(localDate);
-    fMap.put("orig", 3);
-    fMap.put("dest", 1);
-    fMap.put("fdate", sqlDate);
-    FlightDAO fd = new FlightDAO();
-   // System.out.println(fd.getByParameters(fMap));
-    Optional<FlightModel> fm = fd.get(149);
-    System.out.println(fm.get().getCapacity());
-    
-  }
- 
 
   @Override
   public List<FlightModel> getAll() throws SQLException, ClassNotFoundException {

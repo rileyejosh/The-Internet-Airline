@@ -56,16 +56,6 @@ public class ServiceBase {
   }
     return value;
   }
-  
-  public static void main(String[] args) {
-    
-    try {
-      System.out.println(ServiceBase.filterJson("{\"originCity\":\"Delhi\",\"destinationCity\":\"Tokyo\",\"date\":\"2023-03-25\",\"flightNumber\":\"6 \",\"available\":\"1\",\"flightClass\":\"25\",\"flightTime\":\"13:45:00\",\"price\":\"100.0\"}","flightNumber"));
-    } catch (Exception e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    
-  }
+ 
  
 }
