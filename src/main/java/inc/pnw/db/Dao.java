@@ -13,10 +13,14 @@ public interface Dao<T, E> {
   List<T> getAll() throws SQLException, ClassNotFoundException;
   
   void save(E t);
-  
-  void update(E t, String[] params);
-  
-  void delete(E t);
+
+  void updateByParameters(Map<String, Object> parameters, Map<String, Object> conditions);
+
+  void deleteByParameters(Map<String, Object> parameters);
+
+  void delete();
+
+  void update(Object t);
 
   
   

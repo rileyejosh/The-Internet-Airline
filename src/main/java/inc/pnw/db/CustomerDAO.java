@@ -20,6 +20,8 @@ import java.util.Optional;
  */
 public class CustomerDAO implements Dao<CustomerModel, Object>{
 
+    
+  
 	public Optional<CustomerModel> get(Object email) {
 		CustomerModel customer = null;
 		DatabaseManager dbManager = new DatabaseManager();
@@ -50,20 +52,32 @@ public class CustomerDAO implements Dao<CustomerModel, Object>{
   }
 
   @Override
-  public void update(Object t, String[] params) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  public void delete(Object t) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
   public List<CustomerModel> getByParameters(Map<String, Object> parameters) {
     // TODO Auto-generated method stub
     return null;
+  }
+
+  @Override
+  public void updateByParameters(Map<String, Object> parameters, Map<String, Object> conditions) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void deleteByParameters(Map<String, Object> parameters) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void delete() {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void update(Object t) {
+    // TODO Auto-generated method stub
+    
   }
 }
