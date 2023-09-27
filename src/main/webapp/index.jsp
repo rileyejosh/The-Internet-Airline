@@ -69,6 +69,10 @@ input[type=submit]:hover {
 			style="width: 25%" class="w3-bar-item w3-button w3-mobile">Contact
 			Us</a>
 	</div>
+	
+   <c:if test="${not empty sessionScope.username}">
+    Welcome, <c:out value="${sessionScope.username}" />!
+	</c:if>
 
 	<!-- Content -->
 	<div style="text-align: center">

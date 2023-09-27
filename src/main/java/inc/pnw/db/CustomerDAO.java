@@ -22,22 +22,22 @@ public class CustomerDAO implements Dao<CustomerModel, Object>{
 
     
   
-	public Optional<CustomerModel> get(Object email) {
-		CustomerModel customer = null;
-		DatabaseManager dbManager = new DatabaseManager();
-		try (org.sql2o.Connection connection = dbManager.getConnection()) {
-			String sql = "SELECT cid, email, password FROM customer WHERE lower(email) = :email";
-			customer = connection.createQuery(sql)
-			.addParameter("email", email)
-			.executeAndFetchFirst(CustomerModel.class);
+    public Optional<CustomerModel> get(Object email) {
+        CustomerModel customer = null;
+        DatabaseManager dbManager = new DatabaseManager();
+        try (org.sql2o.Connection connection = dbManager.getConnection()) {
+            String sql = "SELECT cid, email, password FROM customer WHERE lower(email) = :email";
+            customer = connection.createQuery(sql)
+            .addParameter("email", email)
+            .executeAndFetchFirst(CustomerModel.class);
 
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			throw ex;
-		}
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw ex;
+        }
 
-		return Optional.ofNullable(customer);
-	}
+        return Optional.ofNullable(customer);
+    }
 
   @Override
   public List<CustomerModel> getAll() throws SQLException, ClassNotFoundException {

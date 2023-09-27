@@ -46,11 +46,18 @@ body, h1, h2, h3, h4, h5, h6 {
 		<h5>The Internet Airline is a convenient and easy-to-use web
 			application for buying airline tickets at affordable prices.</h5>
 		<h5>
-			<a href="${pageContext.request.contextPath}/AirlineApp/rules.jsp">View
+			<a href="${pageContext.request.contextPath}/signup.jsp">Sign
+				up for an account</a>
+		</h5>
+		<h5>
+			<a href="${pageContext.request.contextPath}/login.jsp">Log in to your account</a>
+		</h5>
+		<h5>
+			<a href="${pageContext.request.contextPath}/rules.jsp">View
 				Rules</a>
 		</h5>
 		<h5>
-			<a href="${pageContext.request.contextPath}/AirlineApp/contact.jsp">Display
+			<a href="${pageContext.request.contextPath}/contact.jsp">Display
 				Contact Information</a>
 		</h5>
 	</div>

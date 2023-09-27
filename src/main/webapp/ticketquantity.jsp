@@ -96,7 +96,7 @@ body, h1, h2, h3, h4, h5, h6 {
 
 			</table>
 			<button class="w3-button w3-cell-middle w3-black w3-padding-large"
-				type="submit" name="action" value="ticket"
+				type="submit" name="action" value="login"
 				onclick="return getValue()">Submit</button>
 		</form>
 	</div>
