@@ -51,16 +51,16 @@ public class AirlineApp extends HttpServlet {
       throws ServletException, IOException {
     try {
       LOGGER.info("In doGet method");
-//      String action = request.getParameter("action");
-////      if(action.equals("logout")) {
-////        
-////        HttpSession session = request.getSession(false);
-////
-////        if (session != null) {
-////            // Invalidate and remove the session
-////            session.invalidate();
-////        }
-////      }
+      // String action = request.getParameter("action");
+      //// if(action.equals("logout")) {
+      ////
+      //// HttpSession session = request.getSession(false);
+      ////
+      //// if (session != null) {
+      //// // Invalidate and remove the session
+      //// session.invalidate();
+      //// }
+      //// }
       String requestURI = request.getRequestURI();
       String page = null;
 
@@ -207,6 +207,29 @@ public class AirlineApp extends HttpServlet {
 
 
     }
+    if (action.equals("signup")) {
+
+      String user = (String) request.getParameter("username");
+      String name = (String) request.getParameter("first_name");
+      String address = (String) request.getParameter("address");
+      String password = (String) request.getParameter("password");
+      CustomerModel c = new CustomerModel(name, user, address, password);
+        if (CustomerService.createUserAccount(c)) {
+
+          HttpSession session = request.getSession(true);
+          session.setAttribute("username", user);
+          RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+          dispatcher.forward(request, response);
+        } else if (CustomerService.createUserAccount(c) == false) {
+          // User is not valid, set an error message attribute
+
+          request.setAttribute("errorMessage", "User account already exists. Try again.");
+          RequestDispatcher dispatcher = request.getRequestDispatcher("/signup.jsp");
+          dispatcher.forward(request, response);
+        }
+   
+
+    }
     if (action.equals("login")) {
       RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
       dispatcher.forward(request, response);
@@ -217,20 +240,20 @@ public class AirlineApp extends HttpServlet {
       String user = (String) request.getParameter("username");
       String pass = (String) request.getParameter("password");
       if (CustomerService.validateUser(user, pass)) {
-        
-        
+
+
         // Create a new session or get the existing one
         HttpSession session = request.getSession(true);
-                
+
         // Store user-specific information in the session
         session.setAttribute("username", user);
-        
+
         LOGGER.info("Logging in as user " + user);
-        
+
         dispatcher = request.getRequestDispatcher("/login.jsp");
         dispatcher.forward(request, response);
       } else {
-        
+
         // User is not valid, set an error message attribute
         request.setAttribute("errorMessage", "Invalid user. Please try again.");
         dispatcher = request.getRequestDispatcher("/login.jsp");
@@ -239,7 +262,7 @@ public class AirlineApp extends HttpServlet {
 
 
     }
-    
+
 
   }
 }

@@ -47,7 +47,21 @@ public class CustomerDAO implements Dao<CustomerModel, Object>{
 
   @Override
   public void save(Object t) {
-    // TODO Auto-generated method stub
+    DatabaseManager dbManager = new DatabaseManager();
+    try (org.sql2o.Connection connection = dbManager.getConnection()) {
+
+      CustomerModel c = (CustomerModel) t;
+
+      String sql =
+          "INSERT INTO customer (cname, email, address, password) " + "VALUES (:cname, :email, :address, :password)";
+      connection.createQuery(sql)
+          .addParameter("cname", c.getCname())
+          .addParameter("email", c.getEmail())
+          .addParameter("address", c.getAddress())
+          .addParameter("password", c.getPassword())
+          .executeUpdate();
+
+    }
     
   }
 

@@ -56,10 +56,9 @@ input[type=submit]:hover {
 </head>
 <body>
 
-	<!-- TODO: Fix navigation bar links -->
 	<!-- Navigation Bar -->
 	<div class="w3-bar w3-border w3-light-grey w3-center">
-		<a href="${pageContext.request.contextPath}/index.jsp"
+		<a href="${pageContext.request.contextPath}"
 			style="width: 25%" class="w3-bar-item w3-button w3-mobile">Start
 			Over</a> <a href="${pageContext.request.contextPath}/greatdeals.jsp"
 			style="width: 25%" class="w3-bar-item w3-button w3-mobile">Great

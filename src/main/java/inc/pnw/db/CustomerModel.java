@@ -11,9 +11,8 @@ public class CustomerModel {
 	private int cid;
 	private String cname, email, address, password;
 
-	public CustomerModel(int cid, String cname, String email, String address, String password) {
+	public CustomerModel( String cname, String email, String address, String password) {
 		super();
-		this.cid = cid;
 		this.cname = cname;
 		this.email = email;
 		this.address = address;
@@ -29,11 +28,11 @@ public class CustomerModel {
 		this.cid = cid;
 	}
 
-	public String getName() {
+	public String getCname() {
 		return cname;
 	}
 
-	public void setName(String cname) {
+	public void setCname(String cname) {
 		this.cname = cname;
 	}
 

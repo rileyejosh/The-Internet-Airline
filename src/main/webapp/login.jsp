@@ -67,7 +67,6 @@ input[type=submit]:hover {
 </head>
 <body>
 
-	<!-- TODO: Fix navigation bar links -->
 	<!-- Navigation Bar -->
 	<div class="w3-bar w3-border w3-light-grey w3-center">
 		<a href="${pageContext.request.contextPath}"

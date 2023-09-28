@@ -4,11 +4,7 @@ import java.util.Optional;
 
 public class CustomerService {
    static CustomerDAO customerDao;
-   public static void main(String[] args) {
-     
-     System.out.println(CustomerService.validateUser("test.user@pnw.edu", "pnw"));
-     
-   }
+
    public static boolean validateUser(String email, String pass) {
      
      customerDao = new CustomerDAO();
@@ -20,6 +16,18 @@ public class CustomerService {
            return true;
      }
     return false;
+   }
+   
+   public static boolean createUserAccount(CustomerModel c) {    
+    
+     customerDao = new CustomerDAO();
+     if(customerDao.get(c.getEmail().toLowerCase()).isPresent()) {
+       return false;
+     }
+     else {
+       customerDao.save(c);
+       return true;
+     }
    }
   
 }

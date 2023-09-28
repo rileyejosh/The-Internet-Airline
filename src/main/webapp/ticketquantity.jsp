@@ -30,15 +30,21 @@ body, h1, h2, h3, h4, h5, h6 {
 <body>
 	<!-- Navigation Bar -->
 	<div class="w3-bar w3-border w3-light-grey w3-center">
-		<a href="${pageContext.request.contextPath}/AirlineApp/index.jsp"
+		<a href="${pageContext.request.contextPath}"
 			style="width: 25%" class="w3-bar-item w3-button w3-mobile">Start
-			Over</a> <a href="#" style="width: 25%"
-			class="w3-bar-item w3-button w3-mobile">Great Deals</a> <a href="#"
+			Over</a> <a href="${pageContext.request.contextPath}/greatdeals.jsp"
+			style="width: 25%" class="w3-bar-item w3-button w3-mobile">Great
+			Deals</a> <a href="${pageContext.request.contextPath}/help.jsp"
 			style="width: 25%" class="w3-bar-item w3-button w3-mobile">Help/Information</a>
-		<a href="#" style="width: 25%" class="w3-bar-item w3-button w3-mobile">Contact
+		<a href="${pageContext.request.contextPath}/contact.jsp"
+			style="width: 25%" class="w3-bar-item w3-button w3-mobile">Contact
 			Us</a>
 	</div>
-
+	<c:if test="${not empty sessionScope.username}">
+    Welcome, <c:out value="${sessionScope.username}" />!
+    
+    <%--<a href="${pageContext.request.contextPath}/?action=logout">Log out</a>--%>
+	</c:if>
 	<div class="w3-container">
 		<h2>Ticket Quantity</h2>
 		<p>Ticket Results:</p>
