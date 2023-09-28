@@ -231,7 +231,7 @@ public class AirlineApp extends HttpServlet {
 
     }
     if (action.equals("login")) {
-      RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+      RequestDispatcher dispatcher = request.getRequestDispatcher("/billinginfo.jsp");
       dispatcher.forward(request, response);
 
     }
@@ -250,7 +250,7 @@ public class AirlineApp extends HttpServlet {
 
         LOGGER.info("Logging in as user " + user);
 
-        dispatcher = request.getRequestDispatcher("/login.jsp");
+        dispatcher = request.getRequestDispatcher("/billinginfo.jsp");
         dispatcher.forward(request, response);
       } else {
 
@@ -261,6 +261,11 @@ public class AirlineApp extends HttpServlet {
       }
 
 
+    }
+    if(action.equals("billingInfo")) {
+      
+      
+      
     }
 
 
