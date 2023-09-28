@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +28,7 @@ import java.util.List;
  * Declare the AirlineApp servlet. The urlPatterns of the servlet mapping in your @WebServlet
  * annotation should include the URL of the servlet that handles the form submission.
  */
-@WebServlet(urlPatterns = {"", "/departureflight", "/returnflight", "/ticketquantity"})
+@WebServlet(urlPatterns = {"", "/departureflight", "/returnflight", "/ticketquantity", "/login"})
 public class AirlineApp extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
@@ -50,7 +51,16 @@ public class AirlineApp extends HttpServlet {
       throws ServletException, IOException {
     try {
       LOGGER.info("In doGet method");
-
+      // String action = request.getParameter("action");
+      //// if(action.equals("logout")) {
+      ////
+      //// HttpSession session = request.getSession(false);
+      ////
+      //// if (session != null) {
+      //// // Invalidate and remove the session
+      //// session.invalidate();
+      //// }
+      //// }
       String requestURI = request.getRequestURI();
       String page = null;
 
@@ -62,9 +72,11 @@ public class AirlineApp extends HttpServlet {
 
       } else if (requestURI.endsWith("returnflight")) {
         page = "/returnflight.jsp";
-      
-      } else if(requestURI.endsWith("ticketquantity"))
+
+      } else if (requestURI.endsWith("ticketquantity"))
         page = "/ticketquantity.jsp";
+      else if (requestURI.endsWith("login"))
+        page = "/login.jsp";
       else {
         page = "/error.jsp";
       }
@@ -78,7 +90,7 @@ public class AirlineApp extends HttpServlet {
 
 
           break;
-        case "departureflight.jsp":
+        case "/departureflight.jsp":
           break;
       }
 
@@ -161,8 +173,7 @@ public class AirlineApp extends HttpServlet {
 
           listReturnFlight =
               FlightService.getCityNamesForFlights(FlightService.retrieveReturnFlights(
-                  selectedIndices[0],
-                  session.getAttribute("ReturnDate").toString()));
+                  selectedIndices[0], session.getAttribute("ReturnDate").toString()));
           session.setAttribute("rf", listReturnFlight);
           response.sendRedirect(request.getContextPath() + "/returnflight.jsp");
         }
@@ -190,11 +201,68 @@ public class AirlineApp extends HttpServlet {
       session.setAttribute("ftp",
           FlightService.getFlightTicketPrice(FlightService.getFlightTicket(flightTickets)));
       LOGGER.info("Retrieving Tickets");
-      
+
       response.sendRedirect(request.getContextPath() + "/ticketquantity.jsp");
-      
-      
-    
+
+
+
     }
+    if (action.equals("signup")) {
+
+      String user = (String) request.getParameter("username");
+      String name = (String) request.getParameter("first_name");
+      String address = (String) request.getParameter("address");
+      String password = (String) request.getParameter("password");
+      CustomerModel c = new CustomerModel(name, user, address, password);
+        if (CustomerService.createUserAccount(c)) {
+
+          HttpSession session = request.getSession(true);
+          session.setAttribute("username", user);
+          RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+          dispatcher.forward(request, response);
+        } else if (CustomerService.createUserAccount(c) == false) {
+          // User is not valid, set an error message attribute
+
+          request.setAttribute("errorMessage", "User account already exists. Try again.");
+          RequestDispatcher dispatcher = request.getRequestDispatcher("/signup.jsp");
+          dispatcher.forward(request, response);
+        }
+   
+
+    }
+    if (action.equals("login")) {
+      RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+      dispatcher.forward(request, response);
+
+    }
+    if (action.equals("loginResult")) {
+      RequestDispatcher dispatcher;
+      String user = (String) request.getParameter("username");
+      String pass = (String) request.getParameter("password");
+      if (CustomerService.validateUser(user, pass)) {
+
+
+        // Create a new session or get the existing one
+        HttpSession session = request.getSession(true);
+
+        // Store user-specific information in the session
+        session.setAttribute("username", user);
+
+        LOGGER.info("Logging in as user " + user);
+
+        dispatcher = request.getRequestDispatcher("/login.jsp");
+        dispatcher.forward(request, response);
+      } else {
+
+        // User is not valid, set an error message attribute
+        request.setAttribute("errorMessage", "Invalid user. Please try again.");
+        dispatcher = request.getRequestDispatcher("/login.jsp");
+        dispatcher.forward(request, response);
+      }
+
+
+    }
+
+
   }
 }

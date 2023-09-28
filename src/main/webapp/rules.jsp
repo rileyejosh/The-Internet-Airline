@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<title>Rules</title>
+<meta charset="ISO-8859-1">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Contact</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Raleway">
@@ -25,6 +26,7 @@ body, h1, h2, h3, h4, h5, h6 {
 </style>
 </head>
 <body>
+
 	<!-- Navigation Bar -->
 	<div class="w3-bar w3-border w3-light-grey w3-center">
 		<a href="${pageContext.request.contextPath}"
@@ -42,33 +44,12 @@ body, h1, h2, h3, h4, h5, h6 {
     
     <%--<a href="${pageContext.request.contextPath}/?action=logout">Log out</a>--%>
 	</c:if>
-	<!-- Contact -->
-	<div class="w3-container">
-		<h2>Contact</h2>
-		<p>Let us book your next trip!</p>
-		<i class="fa fa-map-marker" style="width: 30px"></i> Chicago, US<br>
-		<i class="fa fa-phone" style="width: 30px"></i> Phone: +00 151515<br>
-		<i class="fa fa-envelope" style="width: 30px"> </i> Email:
-		db-inc@pnw.com<br>
-		<form action="/action_page.php" target="_blank">
-			<p>
-				<input class="w3-input w3-padding-16 w3-border" type="text"
-					placeholder="Name" required name="Name">
-			</p>
-			<p>
-				<input class="w3-input w3-padding-16 w3-border" type="text"
-					placeholder="Email" required name="Email">
-			</p>
-			<p>
-				<input class="w3-input w3-padding-16 w3-border" type="text"
-					placeholder="Message" required name="Message">
-			</p>
-			<p>
-				<button class="w3-button w3-black w3-padding-large" type="submit">SEND
-					MESSAGE</button>
-			</p>
-		</form>
+	<!-- Help -->
+	<div class="w3-container w3-margin-center">
+		<h3>Guidelines to follow:</h3>
+
 	</div>
+
 
 </body>
 </html>

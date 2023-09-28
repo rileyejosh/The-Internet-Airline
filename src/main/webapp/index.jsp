@@ -56,10 +56,9 @@ input[type=submit]:hover {
 </head>
 <body>
 
-	<!-- TODO: Fix navigation bar links -->
 	<!-- Navigation Bar -->
 	<div class="w3-bar w3-border w3-light-grey w3-center">
-		<a href="${pageContext.request.contextPath}/index.jsp"
+		<a href="${pageContext.request.contextPath}"
 			style="width: 25%" class="w3-bar-item w3-button w3-mobile">Start
 			Over</a> <a href="${pageContext.request.contextPath}/greatdeals.jsp"
 			style="width: 25%" class="w3-bar-item w3-button w3-mobile">Great
@@ -69,6 +68,10 @@ input[type=submit]:hover {
 			style="width: 25%" class="w3-bar-item w3-button w3-mobile">Contact
 			Us</a>
 	</div>
+	
+   <c:if test="${not empty sessionScope.username}">
+    Welcome, <c:out value="${sessionScope.username}" />!
+	</c:if>
 
 	<!-- Content -->
 	<div style="text-align: center">
